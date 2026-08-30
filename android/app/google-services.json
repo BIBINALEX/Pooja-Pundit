@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "18163678586",
+    "project_id": "pooja-b46ef",
+    "storage_bucket": "pooja-b46ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18163678586:android:c64585ab427eb629daeac3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_shell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18163678586-hibmr077unkoi3jlk8a24evgk8phbgvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0yfbcHZjyqYrd26SQTPK18PXh5QAycK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18163678586-hibmr077unkoi3jlk8a24evgk8phbgvl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "18163678586-h62to0m6ehbpi8pdpaivdca4561gb91v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterShell"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18163678586:android:ca9c38edaa9b76b1daeac3",
+        "android_client_info": {
+          "package_name": "com.example.pooja_pundit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18163678586-hibmr077unkoi3jlk8a24evgk8phbgvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0yfbcHZjyqYrd26SQTPK18PXh5QAycK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18163678586-hibmr077unkoi3jlk8a24evgk8phbgvl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "18163678586-h62to0m6ehbpi8pdpaivdca4561gb91v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterShell"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

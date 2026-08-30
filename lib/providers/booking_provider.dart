@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/pooja_request.dart';
-import '../services/socket_service.dart';
-import '../services/api/api_client.dart';
-import '../services/api/backend_api_service.dart';
+import 'package:pooja_pundit/services/api/backend_models.dart';
+import 'package:pooja_pundit/services/socket_service.dart';
+import 'package:pooja_pundit/services/api/api_client.dart';
+import 'package:pooja_pundit/services/api/backend_api_service.dart';
 
 class BookingState {
   BookingState({
@@ -78,10 +78,13 @@ class BookingController extends Notifier<BookingState> {
     return BookingState(available: const [], past: const []);
   }
 
-  Future<void> connect({String? token}) async {
-    _apiService.setToken(token);
+  Future<void> connect({String? url, String? token}) async {
+    final effectiveToken = token ?? _apiService.accessToken;
     try {
-      await _socketService.connect(token: token);
+      await _socketService.connect(
+        url: url ?? 'http://localhost:3000',
+        token: effectiveToken,
+      );
       final joined = await _socketService.joinPandit();
       state = state.copyWith(
         connectionMessage: joined

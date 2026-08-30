@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../models/pooja_request.dart';
+import 'package:pooja_pundit/services/api/backend_models.dart';
 
 class BookingCard extends StatelessWidget {
   const BookingCard({

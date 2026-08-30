@@ -1,14 +1,69 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pooja_pundit/core/di/providers.dart' as di;
 import '../providers/booking_provider.dart';
 
-class AccountPage extends ConsumerWidget {
+class AccountPage extends ConsumerStatefulWidget {
   const AccountPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends ConsumerState<AccountPage> {
+  bool _isLoggingOut = false;
+
+  Future<void> _logout() async {
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Log out?'),
+        content: const Text(
+          'You will need to sign in again to access the app.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Log out'),
+          ),
+        ],
+      ),
+    );
+    if (shouldLogout != true || !mounted) return;
+
+    setState(() => _isLoggingOut = true);
+    Object? logoutError;
+
+    try {
+      await ref.read(bookingProvider.notifier).disconnect();
+      await ref.read(di.backendApiServiceProvider).logout();
+    } catch (error) {
+      logoutError = error;
+    } finally {
+      await FirebaseAuth.instance.signOut();
+    }
+
+    if (!mounted) return;
+    context.go('/login');
+    if (logoutError != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Logged out locally. Server sync failed.'),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(bookingProvider);
 
     return ListView(
@@ -58,6 +113,13 @@ class AccountPage extends ConsumerWidget {
           title: const Text('Current booking status'),
           subtitle: Text(state.active?.service ?? 'No active booking'),
           trailing: const Icon(Icons.arrow_forward_ios),
+        ),
+        const Gap(12),
+        ListTile(
+          enabled: !_isLoggingOut,
+          leading: const Icon(Icons.logout_rounded),
+          title: Text(_isLoggingOut ? 'Logging out...' : 'Log out'),
+          onTap: _isLoggingOut ? null : _logout,
         ),
       ],
     );

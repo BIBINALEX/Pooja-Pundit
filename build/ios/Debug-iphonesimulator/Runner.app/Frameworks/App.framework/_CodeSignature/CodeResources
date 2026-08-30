@@ -8,9 +8,13 @@
 		<data>
 		nHsEkmlVCwRZHdUPhDWVtuHob3A=
 		</data>
+		<key>flutter_assets/.env</key>
+		<data>
+		QEJTBFj3YukHc/okmT71jXn6L5U=
+		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		1Oxg8JHQHnK0LNr3l4uc3HYkhk0=
+		E94wmyPOPuCOdYmCL31g88O5jB8=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -18,11 +22,11 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		N4MW80GnzrhJK0MfYJL62jwEmkM=
+		z67V4ioVZ2SYWwAh+zQXI2i2jMo=
 		</data>
 		<key>flutter_assets/NativeAssetsManifest.json</key>
 		<data>
-		re4p7E8rPLLsN+wzaPN/+AVpXTY=
+		BASHf/14q0VcgmnKtkQLt+qMEqo=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -34,7 +38,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		ZAM+F0S68L89eT4rvtWULAFtHGM=
+		f0UQPE5ff93N+lL3RdmG6spc5jA=
 		</data>
 		<key>flutter_assets/lib/assets/images/Apple%20Default.svg</key>
 		<data>
@@ -144,6 +148,10 @@
 		<data>
 		Bvk+P1ykE1PGRdktwgwDyz6AOqM=
 		</data>
+		<key>flutter_assets/packages/flutter_local_notifications_web/web/notifications_service_worker.js</key>
+		<data>
+		PGjh/l590dm3BAtwJGDweVTbn+s=
+		</data>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
 		sxM4vXUdXTlz/NE5jWpDMQiyBlU=
@@ -159,11 +167,18 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>flutter_assets/.env</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GX2zKTi/3ppQomSo4t57qEWkhobjbREQs4rMVBpuMlw=
+			</data>
+		</dict>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GIoPtNp9/FE4yFtIpiPuNeKo3z+K+Orq+xJif4FDOzg=
+			5gl1mCp5ByAysGLvANG/DgaoD700VtJOcFfKl9Tg3IM=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -177,14 +192,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			e4/O9VGWxcZQMhCARpgH3t/grg5sVGjww3oR8S21/X4=
+			TNib0rnhcpc2w6le+TKFE+2ZL1nXNNxJ2nVVt/k48rE=
 			</data>
 		</dict>
 		<key>flutter_assets/NativeAssetsManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lUijHkoEgTXB2U+Rkyi/tirix7s8q5ZVfHlB2ql3dss=
+			Ylst3tzkLj0hjOuIabyRGejeqGUKbLJKt3nVAIBVsUE=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -205,7 +220,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vPyiuyeQxXzO+l8w5WRQUI/pnLK94WvMj0TgVBzJvHU=
+			L5TMs/iJqc240aLnLSWH30+MiX7/XiE8FjRJqVbMfa8=
 			</data>
 		</dict>
 		<key>flutter_assets/lib/assets/images/Apple%20Default.svg</key>
@@ -395,6 +410,13 @@
 			<key>hash2</key>
 			<data>
 			Z8RP6Rg7AC553ef2l34piGYcmj5KPF/OloeH79vtgjw=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/flutter_local_notifications_web/web/notifications_service_worker.js</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Vm9H3MwPQX8BZKPQhSM0w0DQlBRyr0P8Ze5QoxRVUFg=
 			</data>
 		</dict>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>

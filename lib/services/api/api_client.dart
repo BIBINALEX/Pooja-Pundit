@@ -11,6 +11,8 @@ class ApiClient {
   final AuthTokenProvider? authTokenProvider;
   String? _token;
 
+  String? get currentToken => _token;
+
   void setToken(String? token) => _token = token;
 
   Future<Response<dynamic>> get(String path, {bool requireAuth = false}) {

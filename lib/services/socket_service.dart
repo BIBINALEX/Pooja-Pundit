@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'package:pooja_pundit/services/api/backend_models.dart';
+import 'package:pooja_pundit/services/api/endpoints.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-import '../models/pooja_request.dart';
 
 class SocketService {
   SocketService();
@@ -18,10 +19,11 @@ class SocketService {
 
   bool get isConnected => _isConnected;
 
-  Future<void> connect({String url = 'http://localhost:3000', String? token}) {
+  Future<void> connect({String? url, String? token}) {
+    final socketUrl = url ?? Endpoints.domain;
     _connectionCompleter = Completer<void>();
-    _socket = io.io(url, <String, dynamic>{
-      'transports': ['websocket'],
+    _socket = io.io(socketUrl, <String, dynamic>{
+      'transports': ['websocket', 'polling'],
       'autoConnect': false,
       if (token != null) 'auth': {'token': token},
     });

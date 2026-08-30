@@ -1,0 +1,10 @@
+framework module firebase_core {
+  umbrella header "firebase_core-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module firebase_core.Swift {
+  header "firebase_core-Swift.h"
+}
