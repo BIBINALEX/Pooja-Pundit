@@ -4,6 +4,7 @@ class Endpoints {
   const Endpoints._();
 
   static String get domain => EnvConfig.apiUrl;
+  static String get socketUrl => EnvConfig.socketUrl;
   static String get baseUrl => '$domain/api/v1';
   static const panditSignIn = '/auth/pandit-signin';
   static const me = '/auth/me';

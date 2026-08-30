@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pooja_pundit/core/di/providers.dart' as di;
 import 'package:pooja_pundit/services/api/backend_models.dart';
+import 'package:pooja_pundit/services/api/endpoints.dart';
 import 'package:pooja_pundit/services/socket_service.dart';
-import 'package:pooja_pundit/services/api/api_client.dart';
 import 'package:pooja_pundit/services/api/backend_api_service.dart';
 
 class BookingState {
@@ -41,10 +42,6 @@ final socketServiceProvider = Provider<SocketService>((ref) {
   return SocketService();
 });
 
-final apiServiceProvider = Provider<BackendApiService>((ref) {
-  return BackendApiService(apiClient: ApiClient());
-});
-
 final bookingProvider = NotifierProvider<BookingController, BookingState>(
   BookingController.new,
 );
@@ -56,7 +53,7 @@ class BookingController extends Notifier<BookingState> {
   @override
   BookingState build() {
     _socketService = ref.read(socketServiceProvider);
-    _apiService = ref.read(apiServiceProvider);
+    _apiService = ref.read(di.backendApiServiceProvider);
 
     _socketService.onStatusChanged.listen((message) {
       state = state.copyWith(connectionMessage: message);
@@ -82,7 +79,7 @@ class BookingController extends Notifier<BookingState> {
     final effectiveToken = token ?? _apiService.accessToken;
     try {
       await _socketService.connect(
-        url: url ?? 'http://localhost:3000',
+        url: url ?? Endpoints.socketUrl,
         token: effectiveToken,
       );
       final joined = await _socketService.joinPandit();

@@ -47,9 +47,6 @@ class BackendApiService {
     final response = await _client.post(Endpoints.panditSignIn, data: payload);
     final data = jsonMap(response.data);
     final result = PanditSignInResult.fromJson(data);
-    print(
-      'Pandit sign-in result: ${result.accessToken.isEmpty}, ${result.refreshToken.isEmpty}, requiresProfileCompletion: ${result.requiresProfileCompletion}',
-    );
     if (result.accessToken.isNotEmpty && result.refreshToken.isNotEmpty) {
       await saveSession(
         TokenPair(
@@ -169,7 +166,6 @@ class BackendApiService {
       }
     } catch (error) {
       requestError = error;
-      print('Error during logout request: $error');
     } finally {
       await _tokenStore.clearTokens();
       _client.setToken(null);

@@ -20,7 +20,7 @@ class SocketService {
   bool get isConnected => _isConnected;
 
   Future<void> connect({String? url, String? token}) {
-    final socketUrl = url ?? Endpoints.domain;
+    final socketUrl = url ?? Endpoints.socketUrl;
     _connectionCompleter = Completer<void>();
     _socket = io.io(socketUrl, <String, dynamic>{
       'transports': ['websocket', 'polling'],
