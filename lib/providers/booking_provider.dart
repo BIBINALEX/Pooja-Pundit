@@ -75,11 +75,11 @@ class BookingController extends Notifier<BookingState> {
     return BookingState(available: const [], past: const []);
   }
 
-  Future<void> connect({String? url, String? token}) async {
-    final effectiveToken = token ?? _apiService.accessToken;
+  Future<void> connect() async {
+    final effectiveToken = _apiService.accessToken;
     try {
       await _socketService.connect(
-        url: url ?? Endpoints.socketUrl,
+        url: Endpoints.socketUrl,
         token: effectiveToken,
       );
       final joined = await _socketService.joinPandit();

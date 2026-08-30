@@ -25,9 +25,9 @@ class SocketService {
     _socket = io.io(socketUrl, <String, dynamic>{
       'transports': ['websocket', 'polling'],
       'autoConnect': false,
+      'forceNew': true,
       if (token != null) 'auth': {'token': token},
     });
-
     _socket!.onConnect((_) {
       _isConnected = true;
       _connectionController.add(true);

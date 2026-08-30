@@ -37,7 +37,7 @@ class ApiClient {
     if (requireAuth && (token == null || token.trim().isEmpty)) {
       throw const ApiException('Authentication token is required', 401);
     }
-
+    print('Making $method request to $path with token: $token and data: $data');
     return dio.request(
       path,
       data: data,
