@@ -1,0 +1,38 @@
+# Flutter and Dart generated files
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE metadata
+.idea/
+*.iml
+.vscode/
+
+# macOS
+.DS_Store
+
+# Android local/build files
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# iOS/macOS generated dependencies and build state
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+ios/Flutter/Generated.xcconfig
+macos/Pods/
+macos/.symlinks/
+macos/Flutter/ephemeral/
+macos/Flutter/Generated.xcconfig
+Podfile.lock
