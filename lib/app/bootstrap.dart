@@ -40,9 +40,12 @@ Future<void> _hydrateAuthenticatedUser(ProviderContainer container) async {
   final backendApiService = container.read(di.backendApiServiceProvider);
   final session = await backendApiService.restoreSession();
 
-  if (session != null) {
+  if (session != null && backendApiService.shouldRefreshSession(session)) {
+    await backendApiService.refreshSession();
     return;
   }
+
+  if (session != null) return;
 
   final user = FirebaseAuth.instance.currentUser;
   if (user == null) return;

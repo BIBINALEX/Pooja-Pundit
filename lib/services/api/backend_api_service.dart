@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../auth/token_store.dart';
 import 'api_client.dart';
 import 'backend_models.dart';
@@ -19,6 +21,7 @@ class BackendApiService {
     await _tokenStore.saveSession(
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
+      expiresIn: tokens.expiresIn,
     );
     _firebaseIdToken = null;
     _client.setToken(tokens.accessToken);
@@ -34,12 +37,50 @@ class BackendApiService {
 
   String? get accessToken => _client.currentToken;
 
+  bool shouldRefreshSession(AuthSession session, {DateTime? now}) {
+    final expiry =
+        _parseExpiry(session.expiresIn) ?? _jwtExpiry(session.accessToken);
+    if (expiry == null) return false;
+    return !expiry.isAfter(
+      (now ?? DateTime.now()).add(const Duration(hours: 2)),
+    );
+  }
+
   void useFirebaseToken(String token) {
     _firebaseIdToken = token;
     _client.setToken(token);
   }
 
   String? get authenticationToken => _firebaseIdToken ?? _client.currentToken;
+
+  static DateTime? _parseExpiry(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    final parsedDate = DateTime.tryParse(value);
+    if (parsedDate != null) return parsedDate.toLocal();
+
+    final timestamp = num.tryParse(value);
+    if (timestamp == null) return null;
+    final milliseconds = timestamp > 100000000000
+        ? timestamp.toInt()
+        : (timestamp * 1000).toInt();
+    return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+
+  static DateTime? _jwtExpiry(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) return null;
+    try {
+      final payload = jsonDecode(
+        utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))),
+      );
+      final expiry = payload is Map ? payload['exp'] : null;
+      return expiry is num
+          ? DateTime.fromMillisecondsSinceEpoch((expiry * 1000).toInt())
+          : null;
+    } catch (_) {
+      return null;
+    }
+  }
 
   Future<PanditSignInResult> panditSignIn({required String idToken}) async {
     final payload = <String, dynamic>{'idToken': idToken};
