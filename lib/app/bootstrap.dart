@@ -41,8 +41,13 @@ Future<void> _hydrateAuthenticatedUser(ProviderContainer container) async {
   final session = await backendApiService.restoreSession();
 
   if (session != null && backendApiService.shouldRefreshSession(session)) {
-    await backendApiService.refreshSession();
-    return;
+    try {
+      await backendApiService.refreshSession();
+      return;
+    } catch (error) {
+      debugPrint('Stored session could not be refreshed: $error');
+      await backendApiService.clearSession();
+    }
   }
 
   if (session != null) return;

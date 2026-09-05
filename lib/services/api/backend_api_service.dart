@@ -215,9 +215,16 @@ class BackendApiService {
       Endpoints.refresh,
       data: {'refreshToken': session.refreshToken},
     );
+    print('Refresh session response: ${response.data}');
     final tokens = TokenPair.fromJson(jsonMap(response.data));
     await saveSession(tokens);
     return tokens;
+  }
+
+  Future<void> clearSession() async {
+    await _tokenStore.clearTokens();
+    _client.setToken(null);
+    _firebaseIdToken = null;
   }
 
   Future<void> logout() async {
