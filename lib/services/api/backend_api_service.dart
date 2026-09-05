@@ -218,21 +218,9 @@ class BackendApiService {
     }
   }
 
-  Future<PoojaRequest> acceptBooking(int id) async {
-    final response = await _client.post(
-      Endpoints.acceptBooking(id),
-      requireAuth: true,
-    );
-    return bookingFromJson(jsonMap(response.data)['booking']);
-  }
-
   Future<PoojaRequest> fetchBooking(int id) async {
     final response = await _client.get(Endpoints.bookingById(id));
     return bookingFromJson(jsonMap(response.data)['booking']);
-  }
-
-  Future<void> rejectBooking(int id) async {
-    await _client.post(Endpoints.rejectBooking(id), requireAuth: true);
   }
 
   Future<User> fetchUserProfile() async {

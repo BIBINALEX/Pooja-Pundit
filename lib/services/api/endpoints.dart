@@ -20,8 +20,6 @@ class Endpoints {
   static const bookingActivity = '/bookings/activity';
   static const newBooking = '/bookings/new';
   static String bookingById(int id) => '/bookings/$id';
-  static String acceptBooking(int id) => '/bookings/$id/pandit/accept';
-  static String rejectBooking(int id) => '/bookings/$id/pandit/reject';
   static String serviceById(int id) => '/services/$id';
   static const pandits = '/pandits/list';
   static String panditById(int id) => '/pandits/$id';

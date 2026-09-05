@@ -12,12 +12,14 @@ class SocketService {
   final _connectionController = StreamController<bool>.broadcast();
   bool _isConnected = false;
   Completer<void>? _connectionCompleter;
+  String? _lastActionError;
 
   Stream<String> get onStatusChanged => _statusController.stream;
   Stream<PoojaRequest> get onBookingReceived => _bookingController.stream;
   Stream<bool> get onConnectionChanged => _connectionController.stream;
 
   bool get isConnected => _isConnected;
+  String? get lastActionError => _lastActionError;
 
   Future<void> connect({String? url, String? token}) {
     final socketUrl = url ?? Endpoints.socketUrl;
@@ -68,22 +70,69 @@ class SocketService {
   Future<bool> joinPandit() async {
     if (!_isConnected || _socket == null) return false;
     final result = await _emitWithAck('pandit:join');
+    _lastActionError = result is Map ? result['error']?.toString() : null;
     return result is Map && result['ok'] == true;
   }
 
   Future<bool> leavePandit() async {
     if (!_isConnected || _socket == null) return false;
     final result = await _emitWithAck('pandit:leave');
+    _lastActionError = result is Map ? result['error']?.toString() : null;
     return result is Map && result['ok'] == true;
   }
 
-  Future<dynamic> _emitWithAck(String event) {
+  Future<dynamic> _emitWithAck(
+    String event, {
+    Map<String, dynamic> data = const {},
+  }) {
     final completer = Completer<dynamic>();
-    _socket!.emitWithAck(event, null, ack: (data) => completer.complete(data));
+    _socket!.emitWithAck(
+      event,
+      data,
+      ack: (error, [data]) {
+        if (!completer.isCompleted) {
+          completer.complete(data ?? error);
+        }
+      },
+    );
     return completer.future.timeout(
-      const Duration(seconds: 10),
+      const Duration(seconds: 2),
       onTimeout: () => {'ok': false, 'error': 'Request timed out'},
     );
+  }
+
+  Future<PoojaRequest?> acceptBooking(int bookingId) async {
+    if (!_isConnected || _socket == null) return null;
+
+    final result = await _emitWithAck(
+      'booking:accept',
+      data: {'bookingId': bookingId},
+    );
+    _lastActionError = result is Map
+        ? result['error']?.toString()
+        : 'Unable to accept booking';
+
+    final booking = result is Map ? result['booking'] : null;
+    if (result is Map && result['ok'] == true && booking is Map) {
+      _lastActionError = null;
+      return PoojaRequest.fromJson(Map<String, dynamic>.from(booking));
+    }
+    return null;
+  }
+
+  Future<bool> rejectBooking(int bookingId) async {
+    if (!_isConnected || _socket == null) return false;
+
+    final result = await _emitWithAck(
+      'booking:reject',
+      data: {'bookingId': bookingId},
+    );
+    _lastActionError = result is Map
+        ? result['error']?.toString()
+        : 'Unable to reject booking';
+    final succeeded = result is Map && result['ok'] == true;
+    if (succeeded) _lastActionError = null;
+    return succeeded;
   }
 
   void disconnect() {

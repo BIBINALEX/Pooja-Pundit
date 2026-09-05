@@ -86,7 +86,7 @@ class BookingController extends Notifier<BookingState> {
       state = state.copyWith(
         connectionMessage: joined
             ? 'Online and ready for bookings'
-            : 'Unable to go online',
+            : 'Unable to go online: ${_socketService.lastActionError ?? 'unknown error'}',
         isConnected: joined,
       );
     } catch (error) {
@@ -113,7 +113,12 @@ class BookingController extends Notifier<BookingState> {
     if (request.id == null) return;
 
     try {
-      final accepted = await _apiService.acceptBooking(request.id!);
+      final accepted = await _socketService.acceptBooking(request.id!);
+      if (accepted == null) {
+        throw StateError(
+          _socketService.lastActionError ?? 'Unable to accept booking',
+        );
+      }
       state = state.copyWith(
         active: accepted,
         available: state.available
@@ -132,7 +137,12 @@ class BookingController extends Notifier<BookingState> {
     if (request.id == null) return;
 
     try {
-      await _apiService.rejectBooking(request.id!);
+      final rejected = await _socketService.rejectBooking(request.id!);
+      if (!rejected) {
+        throw StateError(
+          _socketService.lastActionError ?? 'Unable to reject booking',
+        );
+      }
       state = state.copyWith(
         available: state.available
             .where((item) => item.id != request.id)
