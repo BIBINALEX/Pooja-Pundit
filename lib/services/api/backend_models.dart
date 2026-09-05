@@ -421,6 +421,7 @@ class PoojaRequest {
     this.panditId,
     this.offeredAt,
     this.acceptedAt,
+    this.completedAt,
     this.createdAt,
     this.updatedAt,
     this.pandit,
@@ -439,6 +440,7 @@ class PoojaRequest {
   final int? panditId;
   final String? offeredAt;
   final String? acceptedAt;
+  final String? completedAt;
   final String? createdAt;
   final String? updatedAt;
   final BookingPandit? pandit;
@@ -485,11 +487,43 @@ class PoojaRequest {
           : int.tryParse('${json['panditId']}'),
       offeredAt: json['offeredAt']?.toString(),
       acceptedAt: json['acceptedAt']?.toString(),
+      completedAt: json['completedAt']?.toString(),
       createdAt: json['createdAt']?.toString(),
       updatedAt: json['updatedAt']?.toString(),
       pandit: json['pandit'] is Map
           ? BookingPandit.fromJson(jsonMap(json['pandit']))
           : null,
+    );
+  }
+}
+
+class PaginatedBookings {
+  const PaginatedBookings({required this.bookings, required this.pagination});
+
+  final List<PoojaRequest> bookings;
+  final BookingPagination pagination;
+}
+
+class BookingPagination {
+  const BookingPagination({
+    required this.page,
+    required this.pageSize,
+    required this.total,
+    required this.totalPages,
+  });
+
+  final int page;
+  final int pageSize;
+  final int total;
+  final int totalPages;
+
+  factory BookingPagination.fromJson(Object? value) {
+    final json = jsonMap(value);
+    return BookingPagination(
+      page: _int(json['page']),
+      pageSize: _int(json['pageSize']),
+      total: _int(json['total']),
+      totalPages: _int(json['totalPages']),
     );
   }
 }

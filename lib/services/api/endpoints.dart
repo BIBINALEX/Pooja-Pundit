@@ -18,6 +18,7 @@ class Endpoints {
   static const stars = '/stars';
   static const services = '/services/list';
   static const bookingActivity = '/bookings/activity';
+  static const panditBookings = '/bookings/pandit';
   static const newBooking = '/bookings/new';
   static String bookingById(int id) => '/bookings/$id';
   static String serviceById(int id) => '/services/$id';

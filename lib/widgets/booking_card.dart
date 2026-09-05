@@ -10,12 +10,16 @@ class BookingCard extends StatelessWidget {
     required this.onAccept,
     required this.onReject,
     required this.isBusy,
+    required this.isAcceptPending,
+    required this.isRejectPending,
   });
 
   final PoojaRequest request;
   final VoidCallback onAccept;
   final VoidCallback onReject;
   final bool isBusy;
+  final bool isAcceptPending;
+  final bool isRejectPending;
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +76,22 @@ class BookingCard extends StatelessWidget {
                 Expanded(
                   child: FilledButton.icon(
                     onPressed: isBusy ? null : onAccept,
-                    icon: isBusy
-                        ? null
+                    icon: isAcceptPending
+                        ? SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          )
                         : const Icon(Icons.check_circle_outline),
                     label: Text(
-                      isBusy ? 'Finish current task first' : 'Accept request',
+                      isAcceptPending
+                          ? 'Processing...'
+                          : isBusy
+                          ? 'Finish current task first'
+                          : 'Accept request',
                     ),
                   ),
                 ),
@@ -84,7 +99,13 @@ class BookingCard extends StatelessWidget {
                 IconButton(
                   onPressed: isBusy ? null : onReject,
                   tooltip: 'Reject request',
-                  icon: const Icon(Icons.close),
+                  icon: isRejectPending
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.close),
                 ),
               ],
             ),

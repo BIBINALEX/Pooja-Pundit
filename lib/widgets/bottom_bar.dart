@@ -26,59 +26,62 @@ class TabBottomBar extends StatelessWidget {
       ),
     ];
 
-    return Container(
-      height: 92.h,
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFFFFF),
-        border: Border(top: BorderSide(color: Color(0xFFE0E0E0), width: 1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: items.asMap().entries.map((entry) {
-          final index = entry.key;
-          final item = entry.value;
+    return SafeArea(
+      top: false,
+      child: Container(
+        height: 92.h,
+        decoration: const BoxDecoration(
+          color: Color(0xFFFFFFFF),
+          border: Border(top: BorderSide(color: Color(0xFFE0E0E0), width: 1)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: items.asMap().entries.map((entry) {
+            final index = entry.key;
+            final item = entry.value;
 
-          return GestureDetector(
-            onTap: () => onTap(index),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 40.h,
-                  height: 40.h,
-                  decoration: BoxDecoration(
-                    color: currentIndex == index
-                        ? const Color(0xFFFF6D00)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: item.icon.svg(
-                      height: 22.h,
-                      width: 22.h,
+            return GestureDetector(
+              onTap: () => onTap(index),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 40.h,
+                    height: 40.h,
+                    decoration: BoxDecoration(
                       color: currentIndex == index
-                          ? Colors.white
+                          ? const Color(0xFFFF6D00)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                      child: item.icon.svg(
+                        height: 22.h,
+                        width: 22.h,
+                        color: currentIndex == index
+                            ? Colors.white
+                            : const Color(0xFF99A1AF),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    item.label,
+                    style: TextStyle(
+                      fontSize: 11.h,
+                      fontWeight: currentIndex == index
+                          ? FontWeight.w500
+                          : FontWeight.w400,
+                      color: currentIndex == index
+                          ? const Color(0xFFFF6D00)
                           : const Color(0xFF99A1AF),
                     ),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                  item.label,
-                  style: TextStyle(
-                    fontSize: 11.h,
-                    fontWeight: currentIndex == index
-                        ? FontWeight.w500
-                        : FontWeight.w400,
-                    color: currentIndex == index
-                        ? const Color(0xFFFF6D00)
-                        : const Color(0xFF99A1AF),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

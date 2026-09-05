@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
+import 'package:pooja_pundit/services/api/backend_models.dart';
 import '../providers/booking_provider.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
@@ -16,6 +17,35 @@ class AccountPage extends ConsumerStatefulWidget {
 
 class _AccountPageState extends ConsumerState<AccountPage> {
   bool _isLoggingOut = false;
+  bool _isLoadingProfile = true;
+  String? _profileError;
+  Pandit? _pandit;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    try {
+      final pandit = await ref
+          .read(di.backendApiServiceProvider)
+          .fetchPanditProfile();
+      if (!mounted) return;
+      setState(() {
+        _pandit = pandit;
+        _isLoadingProfile = false;
+        _profileError = pandit == null ? 'Profile not found.' : null;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _isLoadingProfile = false;
+        _profileError = 'Unable to load profile.';
+      });
+    }
+  }
 
   Future<void> _logout() async {
     final shouldLogout = await showDialog<bool>(
@@ -65,6 +95,12 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(bookingProvider);
+    final profileDetails = [
+      _pandit?.specialization,
+      _pandit?.language,
+      _pandit?.email,
+      _pandit?.phone,
+    ].whereType<String>().where((value) => value.isNotEmpty).join(' • ');
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -91,8 +127,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
           ),
           child: ListTile(
             leading: const CircleAvatar(child: Icon(Icons.person)),
-            title: const Text('Ramesh Pundit'),
-            subtitle: const Text('Temple specialist • 4.9 rating'),
+            title: Text(
+              _isLoadingProfile
+                  ? 'Loading profile...'
+                  : _pandit?.name ?? 'Pandit profile',
+            ),
+            subtitle: Text(
+              _profileError ??
+                  (profileDetails.isNotEmpty ? profileDetails : _pandit?.bio) ??
+                  'Your profile details will appear here',
+            ),
           ),
         ),
         const Gap(12),

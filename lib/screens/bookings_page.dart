@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/services/api/backend_models.dart';
 import '../providers/booking_provider.dart';
 import '../widgets/booking_card.dart';
 
@@ -20,7 +21,9 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_connected) {
-        ref.read(bookingProvider.notifier).connect();
+        final controller = ref.read(bookingProvider.notifier);
+        controller.connect();
+        controller.loadPastBookings();
         _connected = true;
       }
     });
@@ -30,6 +33,15 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(bookingProvider);
     final controller = ref.read(bookingProvider.notifier);
+
+    ref.listen<BookingState>(bookingProvider, (previous, next) {
+      if (next.alertMessage != null &&
+          next.alertMessage != previous?.alertMessage) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(next.alertMessage!)));
+      }
+    });
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -106,18 +118,118 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
             ),
           ),
         const Gap(16),
-        if (state.available.isEmpty)
-          const Center(child: Text('No bookings available right now.'))
-        else
-          ...state.available.map(
-            (request) => BookingCard(
-              request: request,
-              isBusy: state.active != null,
-              onAccept: () => controller.acceptRequest(request),
-              onReject: () => controller.rejectRequest(request),
-            ),
-          ),
+        _AnimatedBookingList(
+          bookings: state.available,
+          isBusy: state.isBusy,
+          pendingBookingId: state.pendingBookingId,
+          pendingAction: state.pendingAction,
+          onAccept: controller.acceptRequest,
+          onReject: controller.rejectRequest,
+        ),
       ],
+    );
+  }
+}
+
+class _AnimatedBookingList extends StatefulWidget {
+  const _AnimatedBookingList({
+    required this.bookings,
+    required this.isBusy,
+    required this.pendingBookingId,
+    required this.pendingAction,
+    required this.onAccept,
+    required this.onReject,
+  });
+
+  final List<PoojaRequest> bookings;
+  final bool isBusy;
+  final int? pendingBookingId;
+  final BookingAction? pendingAction;
+  final ValueChanged<PoojaRequest> onAccept;
+  final ValueChanged<PoojaRequest> onReject;
+
+  @override
+  State<_AnimatedBookingList> createState() => _AnimatedBookingListState();
+}
+
+class _AnimatedBookingListState extends State<_AnimatedBookingList> {
+  final _listKey = GlobalKey<AnimatedListState>();
+  late final List<PoojaRequest> _bookings;
+
+  @override
+  void initState() {
+    super.initState();
+    _bookings = [...widget.bookings];
+  }
+
+  @override
+  void didUpdateWidget(covariant _AnimatedBookingList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final nextIds = widget.bookings.map((booking) => booking.id).toSet();
+    for (var index = _bookings.length - 1; index >= 0; index--) {
+      if (!nextIds.contains(_bookings[index].id)) {
+        final removed = _bookings.removeAt(index);
+        _listKey.currentState?.removeItem(
+          index,
+          (context, animation) => _buildItem(removed, animation),
+          duration: const Duration(milliseconds: 250),
+        );
+      }
+    }
+    for (var index = 0; index < widget.bookings.length; index++) {
+      final booking = widget.bookings[index];
+      final currentIndex = _bookings.indexWhere(
+        (item) => item.id == booking.id,
+      );
+      if (currentIndex == -1) {
+        _bookings.insert(index, booking);
+        _listKey.currentState?.insertItem(
+          index,
+          duration: const Duration(milliseconds: 250),
+        );
+      } else {
+        _bookings[currentIndex] = booking;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AnimatedList(
+          key: _listKey,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          initialItemCount: _bookings.length,
+          itemBuilder: (context, index, animation) =>
+              _buildItem(_bookings[index], animation),
+        ),
+        if (_bookings.isEmpty)
+          const Center(child: Text('No bookings available right now.')),
+      ],
+    );
+  }
+
+  Widget _buildItem(PoojaRequest request, Animation<double> animation) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: FadeTransition(
+        opacity: animation,
+        child: BookingCard(
+          request: request,
+          isBusy: widget.isBusy,
+          isAcceptPending:
+              widget.pendingBookingId == request.id &&
+              widget.pendingAction == BookingAction.accepting,
+          isRejectPending:
+              widget.pendingBookingId == request.id &&
+              widget.pendingAction == BookingAction.rejecting,
+          onAccept: () => widget.onAccept(request),
+          onReject: () => widget.onReject(request),
+        ),
+      ),
     );
   }
 }

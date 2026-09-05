@@ -114,6 +114,15 @@ class BackendApiService {
     return pandit is Map ? Pandit.fromJson(jsonMap(pandit)) : null;
   }
 
+  Future<Pandit?> fetchPanditProfile() async {
+    final response = await _client.get(
+      Endpoints.panditProfile,
+      requireAuth: true,
+    );
+    final pandit = jsonMap(response.data)['pandit'];
+    return pandit is Map ? Pandit.fromJson(jsonMap(pandit)) : null;
+  }
+
   Future<TokenPair> registerPandit({
     required String name,
     required String dob,
@@ -159,6 +168,21 @@ class BackendApiService {
     final bookings = jsonMap(response.data)['bookings'];
     if (bookings is! List) return const [];
     return bookings.map(bookingFromJson).toList();
+  }
+
+  Future<PaginatedBookings> fetchPanditBookings({int page = 1}) async {
+    final response = await _client.get(
+      '${Endpoints.panditBookings}?page=$page',
+      requireAuth: true,
+    );
+    final data = jsonMap(response.data);
+    final bookings = data['bookings'];
+    return PaginatedBookings(
+      bookings: bookings is List
+          ? bookings.map(bookingFromJson).toList()
+          : const [],
+      pagination: BookingPagination.fromJson(data['pagination']),
+    );
   }
 
   Future<List<Diety>> fetchDieties() async {
