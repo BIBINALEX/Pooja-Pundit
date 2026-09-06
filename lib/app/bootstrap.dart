@@ -8,6 +8,7 @@ import 'package:pooja_pundit/core/di/providers.dart' as di;
 import 'package:pooja_pundit/core/router/app_router.dart';
 import 'package:pooja_pundit/core/notifications/notification_service.dart';
 import 'package:pooja_pundit/firebase_options.dart';
+import 'package:pooja_pundit/services/app/first_launch_reset_service.dart';
 import 'app.dart';
 
 Future<void> bootstrap() async {
@@ -22,6 +23,7 @@ Future<void> bootstrap() async {
   }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await const FirstLaunchResetService().resetIfNeeded();
 
   final container = await _initServices();
   await _hydrateAuthenticatedUser(container);
