@@ -320,6 +320,12 @@
       "languageVersion": "3.10"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///Users/bibinalex/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
+    },
+    {
       "name": "flutter_riverpod",
       "rootUri": "file:///Users/bibinalex/.pub-cache/hosted/pub.dev/flutter_riverpod-3.3.2",
       "packageUri": "lib/",
@@ -459,9 +465,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///Users/bibinalex/.pub-cache/hosted/pub.dev/intl-0.18.1",
+      "rootUri": "file:///Users/bibinalex/.pub-cache/hosted/pub.dev/intl-0.20.2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.3"
     },
     {
       "name": "io",

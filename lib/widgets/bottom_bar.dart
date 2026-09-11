@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import '../gen/assets.gen.dart';
 
 class TabBottomBar extends StatelessWidget {
@@ -14,20 +15,25 @@ class TabBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final List<_BottomBarItem> items = [
-      _BottomBarItem(icon: Assets.lib.assets.images.homeTab, label: 'Home'),
+      _BottomBarItem(
+        icon: Assets.lib.assets.images.homeTab,
+        label: l10n.tabHome,
+      ),
       _BottomBarItem(
         icon: Assets.lib.assets.images.activityTab,
-        label: 'Activity',
+        label: l10n.tabActivity,
       ),
       _BottomBarItem(
         icon: Assets.lib.assets.images.profileTab,
-        label: 'Account',
+        label: l10n.tabAccount,
       ),
     ];
 
     return SafeArea(
       top: false,
+      bottom: Theme.of(context).platform == TargetPlatform.android,
       child: Container(
         height: 92.h,
         decoration: const BoxDecoration(

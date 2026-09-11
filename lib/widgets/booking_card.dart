@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
+import 'package:pooja_pundit/services/localization/catalog_localizations.dart';
 
 class BookingCard extends StatelessWidget {
   const BookingCard({
@@ -23,6 +25,7 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
       decoration: BoxDecoration(
@@ -55,16 +58,33 @@ class BookingCard extends StatelessWidget {
                 ),
                 Chip(
                   side: BorderSide(color: const Color(0xFFF0E0C0)),
-                  label: Text(request.service),
+                  label: Text(
+                    localizedService(
+                      request.service,
+                      Localizations.localeOf(context),
+                    ),
+                  ),
                   backgroundColor: Colors.white,
                 ),
               ],
             ),
             const Gap(8),
-            _infoRow('DOB', request.formattedDob),
-            _infoRow('Birth Star', request.birthStar),
-            _infoRow('Diety', request.diety),
-            _infoRow('Crowd Prayer', request.crowdPrayer ? 'Yes' : 'No'),
+            _infoRow(l10n.dobShort, request.formattedDob),
+            _infoRow(
+              l10n.birthStarShort,
+              localizedBirthStar(
+                request.birthStar,
+                Localizations.localeOf(context),
+              ),
+            ),
+            _infoRow(
+              l10n.dietyShort,
+              localizedDiety(request.diety, Localizations.localeOf(context)),
+            ),
+            _infoRow(
+              l10n.crowdPrayerLabel,
+              request.crowdPrayer ? l10n.yes : l10n.no,
+            ),
             const Gap(8),
             Text(
               request.notes,
@@ -88,17 +108,17 @@ class BookingCard extends StatelessWidget {
                         : const Icon(Icons.check_circle_outline),
                     label: Text(
                       isAcceptPending
-                          ? 'Processing...'
+                          ? l10n.processing
                           : isBusy
-                          ? 'Finish current task first'
-                          : 'Accept request',
+                          ? l10n.finishCurrentTaskFirst
+                          : l10n.acceptRequest,
                     ),
                   ),
                 ),
                 const Gap(8),
                 IconButton(
                   onPressed: isBusy ? null : onReject,
-                  tooltip: 'Reject request',
+                  tooltip: l10n.rejectRequestTooltip,
                   icon: isRejectPending
                       ? const SizedBox(
                           width: 20,

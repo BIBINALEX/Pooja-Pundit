@@ -14,9 +14,7 @@ final GoRouter appRouter = GoRouter(
     final isLoginRoute = state.matchedLocation == '/login';
     final isRegisterRoute = state.matchedLocation == '/register';
 
-    if (isLoggedIn &&
-        pendingRegistrationProfile != null &&
-        !isRegisterRoute) {
+    if (isLoggedIn && pendingRegistrationProfile != null && !isRegisterRoute) {
       return '/register';
     }
 
@@ -40,13 +38,19 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => RegistrationPage(
         initialProfile: state.extra is PanditSignInResult
             ? state.extra as PanditSignInResult
-        : pendingRegistrationProfile,
+            : pendingRegistrationProfile,
       ),
     ),
     GoRoute(
       path: '/',
       name: 'root',
-      builder: (context, state) => const MainTabs(),
+      builder: (context, state) => MainTabs(
+        initialTab: switch (Uri.parse(state.location).queryParameters['tab']) {
+          'activity' => 1,
+          'bookings' => 0,
+          _ => 0,
+        },
+      ),
     ),
   ],
 );

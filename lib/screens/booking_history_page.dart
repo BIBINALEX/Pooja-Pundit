@@ -4,8 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:pooja_pundit/gen/assets.gen.dart';
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import '../services/api/backend_models.dart';
 import '../providers/booking_provider.dart';
+import '../services/localization/catalog_localizations.dart';
 
 class BookingHistoryPage extends ConsumerWidget {
   const BookingHistoryPage({super.key});
@@ -13,20 +15,21 @@ class BookingHistoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(bookingProvider);
+    final l10n = AppLocalizations.of(context);
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       children: [
         const Gap(12),
         Text(
-          'Past bookings',
+          l10n.pastBookings,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
         ),
         const Gap(16),
         if (state.isLoadingPast && state.past.isEmpty)
           const Center(child: CircularProgressIndicator())
         else if (state.past.isEmpty)
-          const Center(child: Text('No completed bookings yet.'))
+          Center(child: Text(l10n.noCompletedBookingsYet))
         else
           ...state.past.map((request) => _BookingHistoryCard(request: request)),
         if (state.pastTotalPages > 1) ...[
@@ -41,9 +44,14 @@ class BookingHistoryPage extends ConsumerWidget {
                           .loadPastBookings(page: state.pastPage - 1)
                     : null,
                 icon: const Icon(Icons.chevron_left),
-                tooltip: 'Previous page',
+                tooltip: l10n.previousPage,
               ),
-              Text('${state.pastPage} / ${state.pastTotalPages}'),
+              Text(
+                l10n.pageOfPages(
+                  '${state.pastPage}',
+                  '${state.pastTotalPages}',
+                ),
+              ),
               IconButton(
                 onPressed:
                     state.pastPage < state.pastTotalPages &&
@@ -53,7 +61,7 @@ class BookingHistoryPage extends ConsumerWidget {
                           .loadPastBookings(page: state.pastPage + 1)
                     : null,
                 icon: const Icon(Icons.chevron_right),
-                tooltip: 'Next page',
+                tooltip: l10n.nextPage,
               ),
             ],
           ),
@@ -70,10 +78,12 @@ class _BookingHistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final status = request.status.toString().toUpperCase();
     final statusColor = _statusColor(status);
     final createdDate = _formatDate(request.createdAt);
     final completedDate = _formatDate(request.completedAt);
+    final locale = Localizations.localeOf(context);
 
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
@@ -112,8 +122,8 @@ class _BookingHistoryCard extends StatelessWidget {
                     children: [
                       Text(
                         request.service.isNotEmpty
-                            ? request.service
-                            : 'Puja Service',
+                            ? localizedService(request.service, locale)
+                            : l10n.pujaService,
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
@@ -123,8 +133,8 @@ class _BookingHistoryCard extends StatelessWidget {
                       Gap(4.h),
                       Text(
                         request.diety.isNotEmpty
-                            ? request.diety
-                            : 'Diety not specified',
+                            ? localizedDiety(request.diety, locale)
+                            : l10n.dietyNotSpecified,
                         style: TextStyle(
                           fontSize: 11.sp,
                           color: const Color(0xFF99A1AF),
@@ -135,11 +145,14 @@ class _BookingHistoryCard extends StatelessWidget {
                         spacing: 6.w,
                         runSpacing: 6.h,
                         children: [
-                          _Tag(label: _statusLabel(status), color: statusColor),
+                          _Tag(
+                            label: _statusLabel(l10n, status),
+                            color: statusColor,
+                          ),
                           if (request.crowdPrayer)
-                            const _Tag(
-                              label: 'CROWD PRAYER',
-                              color: Color(0xFFFF6B00),
+                            _Tag(
+                              label: l10n.crowdPrayerTag,
+                              color: const Color(0xFFFF6B00),
                             ),
                         ],
                       ),
@@ -153,42 +166,42 @@ class _BookingHistoryCard extends StatelessWidget {
             Gap(12.h),
             _InfoRow(
               icon: Icons.person_outline,
-              label: 'Booked for',
+              label: l10n.bookedFor,
               value: request.fullname.isNotEmpty
                   ? request.fullname
-                  : 'Name not provided',
+                  : l10n.nameNotProvided,
             ),
             _InfoRow(
               icon: Icons.auto_awesome_outlined,
-              label: 'Birth star',
-              value: request.birthStar,
+              label: l10n.birthStar,
+              value: localizedBirthStar(request.birthStar, locale),
             ),
             _InfoRow(
               icon: Icons.cake_outlined,
-              label: 'Date of birth',
+              label: l10n.dateOfBirthLabel,
               value: request.formattedDob,
             ),
             _InfoRow(
               icon: Icons.event_outlined,
-              label: 'Booked on',
+              label: l10n.bookedOn,
               value: createdDate,
             ),
             if (request.pandit != null)
               _InfoRow(
                 icon: Icons.person_pin_outlined,
-                label: 'Pandit',
+                label: l10n.panditLabel,
                 value: request.pandit?.name ?? '-',
               ),
             if (completedDate != '-')
               _InfoRow(
                 icon: Icons.check_circle_outline,
-                label: 'Completed',
+                label: l10n.completedLabel,
                 value: completedDate,
               ),
             if (request.notes.trim().isNotEmpty)
               _InfoRow(
                 icon: Icons.notes_outlined,
-                label: 'Notes',
+                label: l10n.notesLabel,
                 value: request.notes,
               ),
           ],
@@ -204,17 +217,32 @@ class _BookingHistoryCard extends StatelessWidget {
         : DateFormat('dd MMM yyyy, h:mm a').format(date.toLocal());
   }
 
-  String _statusLabel(String status) {
-    return status
-        .replaceAll('_', ' ')
-        .toLowerCase()
-        .split(' ')
-        .map(
-          (word) => word.isEmpty
-              ? word
-              : '${word[0].toUpperCase()}${word.substring(1)}',
-        )
-        .join(' ');
+  String _statusLabel(AppLocalizations l10n, String status) {
+    switch (status) {
+      case 'COMPLETED':
+        return l10n.statusCompleted;
+      case 'ACCEPTED':
+        return l10n.statusAccepted;
+      case 'REJECTED':
+        return l10n.statusRejected;
+      case 'EXPIRED':
+        return l10n.statusExpired;
+      case 'NO_PANDIT_AVAILABLE':
+        return l10n.statusNoPanditAvailable;
+      case 'PENDING':
+        return l10n.statusPending;
+      default:
+        return status
+            .replaceAll('_', ' ')
+            .toLowerCase()
+            .split(' ')
+            .map(
+              (word) => word.isEmpty
+                  ? word
+                  : '${word[0].toUpperCase()}${word.substring(1)}',
+            )
+            .join(' ');
+    }
   }
 
   Color _statusColor(String status) {

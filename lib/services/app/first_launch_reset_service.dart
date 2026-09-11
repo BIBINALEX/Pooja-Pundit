@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +25,16 @@ class FirstLaunchResetService {
 
     await _secureStorage.deleteAll();
     await (_firebaseAuth ?? FirebaseAuth.instance).signOut();
-    await (_firebaseMessaging ?? FirebaseMessaging.instance).deleteToken();
+    final messaging = _firebaseMessaging ?? FirebaseMessaging.instance;
+    if (defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.macOS) {
+      final apnsToken = await messaging.getAPNSToken();
+      if (apnsToken != null && apnsToken.isNotEmpty) {
+        await messaging.deleteToken();
+      }
+    } else {
+      await messaging.deleteToken();
+    }
     await preferences.setBool(_resetCompletedKey, true);
   }
 }

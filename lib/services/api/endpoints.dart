@@ -14,6 +14,7 @@ class Endpoints {
   static const panditProfile = '/pandits/profile';
   static const panditRegister = panditProfile;
   static const panditMe = '/pandits/me';
+  static const panditFcmToken = '/pandits/fcm-token';
   static const dieties = '/dieties/list';
   static const stars = '/stars';
   static const services = '/services/list';

@@ -1,0 +1,277 @@
+{
+    "@@locale": "en",
+    "appTitle": "Pooja Pundit",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "pleaseEnterValidPhone": "Please enter a valid phone number.",
+    "autoVerificationFailed": "Auto-verification failed: {error}",
+    "@autoVerificationFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "verificationFailed": "Verification failed.",
+    "otpSentSuccessfully": "OTP sent successfully.",
+    "unableToSendOtp": "Unable to send OTP: {error}",
+    "@unableToSendOtp": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "pleaseEnterValidOtp": "Please enter a valid OTP or request a new one.",
+    "invalidOtp": "Invalid OTP.",
+    "otpVerificationFailed": "OTP verification failed: {error}",
+    "@otpVerificationFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "noAuthenticatedUserFound": "No authenticated user found.",
+    "firebaseUserTokenEmpty": "Firebase user token is empty.",
+    "backendInvalidTokens": "Backend API did not return valid tokens.",
+    "loginFailed": "Login failed: {error}",
+    "@loginFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "welcomeBackSignIn": "Welcome back! Sign in with your mobile number",
+    "verifyOtp": "Verify OTP",
+    "mobileNumber": "Mobile number",
+    "enterOtpSentToMobile": "Enter the 6-digit OTP sent to your mobile.",
+    "willSendOneTimePassword": "We will send a one-time password to your number.",
+    "codeLabel": "Code",
+    "phoneNumberLabel": "Phone number",
+    "changeNumber": "Change number",
+    "sendOtp": "Send OTP",
+    "registrationFailed": "Registration failed: {error}",
+    "@registrationFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "completeYourProfile": "Complete your profile",
+    "addRemainingDetails": "Add the remaining details so you can start using the app.",
+    "fullNameLabel": "Full name",
+    "nameRequired": "Name is required",
+    "emailLabel": "Email",
+    "emailRequired": "Email is required",
+    "phoneNumberFieldLabel": "Phone Number",
+    "phoneNumberRequired": "Phone Number is required",
+    "dateOfBirthLabel": "Date of birth",
+    "dobRequired": "DOB is required",
+    "genderLabel": "Gender",
+    "genderRequired": "Gender is required",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "specializationLabel": "Specialization",
+    "specializationRequired": "Specialization is required",
+    "languageLabel": "Language",
+    "languageRequired": "Language is required",
+    "languageOptionEnglish": "English",
+    "languageOptionMalayalam": "Malayalam",
+    "languageOptionTamil": "Tamil",
+    "languageOptionHindi": "Hindi",
+    "bioLabel": "Bio",
+    "bioRequired": "Bio is required",
+    "continueLabel": "Continue",
+    "profileNotFound": "Profile not found.",
+    "unableToLoadProfile": "Unable to load profile.",
+    "logOutQuestion": "Log out?",
+    "signInAgainMessage": "You will need to sign in again to access the app.",
+    "logOut": "Log out",
+    "loggedOutLocallyServerSyncFailed": "Logged out locally. Server sync failed.",
+    "accountAndSettings": "Account and settings",
+    "loadingProfile": "Loading profile...",
+    "panditProfile": "Pandit profile",
+    "yourProfileDetailsWillAppearHere": "Your profile details will appear here",
+    "acceptInstantRequests": "Accept instant requests",
+    "getNotifiedNewRequest": "Get notified when a new pooja request arrives",
+    "socketLiveUpdates": "Socket live updates",
+    "keepBookingFeedSynced": "Keep the booking feed synced",
+    "currentBookingStatus": "Current booking status",
+    "noActiveBooking": "No active booking",
+    "loggingOut": "Logging out...",
+    "pastBookings": "Past bookings",
+    "noCompletedBookingsYet": "No completed bookings yet.",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageOfPages": "{page} / {totalPages}",
+    "@pageOfPages": {
+        "placeholders": {
+            "page": {
+                "type": "String"
+            },
+            "totalPages": {
+                "type": "String"
+            }
+        }
+    },
+    "pujaService": "Puja Service",
+    "dietyNotSpecified": "Diety not specified",
+    "crowdPrayerTag": "CROWD PRAYER",
+    "bookedFor": "Booked for",
+    "nameNotProvided": "Name not provided",
+    "birthStar": "Birth star",
+    "bookedOn": "Booked on",
+    "panditLabel": "Pandit",
+    "completedLabel": "Completed",
+    "notesLabel": "Notes",
+    "statusCompleted": "Completed",
+    "statusAccepted": "Accepted",
+    "statusRejected": "Rejected",
+    "statusExpired": "Expired",
+    "statusNoPanditAvailable": "No Pandit Available",
+    "statusPending": "Pending",
+    "availableBookingOpportunities": "Available booking opportunities",
+    "currentActiveBooking": "Current active booking",
+    "dietyPrefix": "Diety: {diety}",
+    "@dietyPrefix": {
+        "placeholders": {
+            "diety": {
+                "type": "String"
+            }
+        }
+    },
+    "completeBooking": "Complete booking",
+    "freeToAcceptNext": "You are free to accept the next available booking.",
+    "noBookingsAvailable": "No bookings available right now.",
+    "dobShort": "DOB",
+    "birthStarShort": "Birth Star",
+    "dietyShort": "Diety",
+    "crowdPrayerLabel": "Crowd Prayer",
+    "processing": "Processing...",
+    "finishCurrentTaskFirst": "Finish current task first",
+    "acceptRequest": "Accept request",
+    "rejectRequestTooltip": "Reject request",
+    "statusOnline": "Online",
+    "statusBusy": "Busy",
+    "statusOffline": "Offline",
+    "tabHome": "Home",
+    "tabActivity": "Activity",
+    "tabAccount": "Account",
+    "waitingForBookings": "Waiting for bookings",
+    "socketConnected": "Socket connected",
+    "socketDisconnected": "Socket disconnected",
+    "onlineAndReadyForBookings": "Online and ready for bookings",
+    "busyWithActiveBooking": "Busy with an active booking",
+    "unknownError": "unknown error",
+    "unableToGoOnline": "Unable to go online: {error}",
+    "@unableToGoOnline": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "socketUnavailable": "Socket unavailable: {error}",
+    "@socketUnavailable": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "unableToStayOnline": "Unable to stay online: {error}",
+    "@unableToStayOnline": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "couldNotLoadPastBookings": "Could not load past bookings: {error}",
+    "@couldNotLoadPastBookings": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "acceptedBooking": "Accepted {name}",
+    "@acceptedBooking": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "couldNotAcceptBooking": "Could not accept booking: {error}",
+    "@couldNotAcceptBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "bookingTakenByAnother": "Booking #{id} was accepted by another pandit.",
+    "@bookingTakenByAnother": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "bookingOfferExpired": "Booking #{id} offer expired.",
+    "@bookingOfferExpired": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "bookingNoLongerAvailable": "Booking #{id} is no longer available.",
+    "@bookingNoLongerAvailable": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "rejectedBooking": "Rejected {name}",
+    "@rejectedBooking": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "couldNotRejectBooking": "Could not reject booking: {error}",
+    "@couldNotRejectBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "unableToAcceptBooking": "Unable to accept booking",
+    "unableToRejectBooking": "Unable to reject booking",
+    "unableToCompleteBooking": "Unable to complete booking",
+    "completedBooking": "Completed {name}",
+    "@completedBooking": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "couldNotCompleteBooking": "Could not complete booking: {error}",
+    "@couldNotCompleteBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
+}

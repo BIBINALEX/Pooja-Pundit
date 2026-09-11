@@ -7,9 +7,16 @@ import '../widgets/bottom_bar.dart';
 import '../widgets/app_bar.dart';
 import '../providers/tab_index_provider.dart';
 
-class MainTabs extends ConsumerWidget {
-  const MainTabs({super.key});
+class MainTabs extends ConsumerStatefulWidget {
+  const MainTabs({super.key, this.initialTab = 0});
 
+  final int initialTab;
+
+  @override
+  ConsumerState<MainTabs> createState() => _MainTabsState();
+}
+
+class _MainTabsState extends ConsumerState<MainTabs> {
   final List<Widget> _pages = const [
     BookingsPage(),
     BookingHistoryPage(),
@@ -17,7 +24,17 @@ class MainTabs extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(tabIndexProvider.notifier).selectTab(widget.initialTab);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final index = ref.watch(tabIndexProvider);
     return Scaffold(
       appBar: const CustomAppBar(),

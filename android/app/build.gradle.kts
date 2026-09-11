@@ -31,6 +31,20 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["appName"] = "Acharya"
+    }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("development") {
+            dimension = "environment"
+            manifestPlaceholders["appName"] = "Acharya Dev"
+        }
+        create("production") {
+            dimension = "environment"
+            manifestPlaceholders["appName"] = "Acharya"
+        }
     }
 
     buildTypes {

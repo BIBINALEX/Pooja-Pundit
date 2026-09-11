@@ -1,17 +1,46 @@
-# pooja_pundit
+# Acharya
 
-A new Flutter project.
+## Flavors
 
-## Getting Started
+The app has separate development and production flavors. Each flavor loads its
+own file from `env/` at runtime:
 
-This project is a starting point for a Flutter application.
+- development: `env/.env.development`, displayed as `Acharya Dev`
+- production: `env/.env.production`, displayed as `Acharya`
 
-A few resources to get you started if this is your first Flutter project:
+Run development:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```sh
+flutter run --flavor development --dart-define=FLAVOR=development
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The same workflows are available through the root `Makefile`:
+
+```sh
+make dev
+make prod
+make build-dev
+make build-prod
+```
+
+Run production:
+
+```sh
+flutter run --flavor production --dart-define=FLAVOR=production
+```
+
+Build Android:
+
+```sh
+flutter build apk --flavor production --dart-define=FLAVOR=production
+```
+
+Build iOS:
+
+```sh
+flutter build ios --flavor production --dart-define=FLAVOR=production
+```
+
+Copy `env/.env.example` to each flavor file and replace the placeholder values
+before using a new checkout. The flavor files are intentionally ignored by
+git because they contain environment-specific configuration.

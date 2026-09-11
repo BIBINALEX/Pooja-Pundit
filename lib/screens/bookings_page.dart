@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
+import 'package:pooja_pundit/providers/booking_message_localizer.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
 import '../providers/booking_provider.dart';
 import '../widgets/booking_card.dart';
+import '../services/localization/catalog_localizations.dart';
 
 class BookingsPage extends ConsumerStatefulWidget {
   const BookingsPage({super.key});
@@ -33,13 +36,19 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(bookingProvider);
     final controller = ref.read(bookingProvider.notifier);
+    final l10n = AppLocalizations.of(context);
+    final locale = Localizations.localeOf(context);
 
     ref.listen<BookingState>(bookingProvider, (previous, next) {
       if (next.alertMessage != null &&
           next.alertMessage != previous?.alertMessage) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(next.alertMessage!)));
+          ..showSnackBar(
+            SnackBar(
+              content: Text(localizeBookingMessage(l10n, next.alertMessage!)),
+            ),
+          );
       }
     });
 
@@ -48,12 +57,12 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
       children: [
         const Gap(12),
         Text(
-          'Available booking opportunities',
+          l10n.availableBookingOpportunities,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
         ),
         const Gap(8),
         Text(
-          state.connectionMessage,
+          localizeBookingMessage(l10n, state.connectionMessage),
           style: TextStyle(color: Colors.grey.shade700),
         ),
         const Gap(16),
@@ -76,7 +85,7 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Current active booking',
+                  l10n.currentActiveBooking,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
@@ -87,13 +96,15 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                   state.active!.fullname,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-                Text(state.active!.service),
-                Text('Diety: ${state.active!.diety}'),
+                Text(localizedService(state.active!.service, locale)),
+                Text(
+                  l10n.dietyPrefix(localizedDiety(state.active!.diety, locale)),
+                ),
                 const Gap(12),
                 FilledButton.icon(
                   onPressed: controller.completeActiveBooking,
                   icon: const Icon(Icons.done_all),
-                  label: const Text('Complete booking'),
+                  label: Text(l10n.completeBooking),
                 ),
               ],
             ),
@@ -113,9 +124,7 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                 ),
               ],
             ),
-            child: const Text(
-              'You are free to accept the next available booking.',
-            ),
+            child: Text(l10n.freeToAcceptNext),
           ),
         const Gap(16),
         _AnimatedBookingList(
@@ -207,7 +216,7 @@ class _AnimatedBookingListState extends State<_AnimatedBookingList> {
               _buildItem(_bookings[index], animation),
         ),
         if (_bookings.isEmpty)
-          const Center(child: Text('No bookings available right now.')),
+          Center(child: Text(AppLocalizations.of(context).noBookingsAvailable)),
       ],
     );
   }

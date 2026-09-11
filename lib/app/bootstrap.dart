@@ -4,21 +4,32 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
 import 'package:pooja_pundit/core/router/app_router.dart';
 import 'package:pooja_pundit/core/notifications/notification_service.dart';
 import 'package:pooja_pundit/firebase_options.dart';
 import 'package:pooja_pundit/services/app/first_launch_reset_service.dart';
+import 'package:pooja_pundit/services/localization/locale_service.dart';
 import 'app.dart';
 
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'production');
+  final envFile = switch (flavor) {
+    'development' => 'env/.env.development',
+    'production' => 'env/.env.production',
+    _ => throw StateError(
+      'Unsupported FLAVOR "$flavor". Use development or production.',
+    ),
+  };
+
   try {
-    await dotenv.load(fileName: '.env');
+    await dotenv.load(fileName: envFile);
   } catch (_) {
     debugPrint(
-      'No .env file is available in this build; continuing without env vars.',
+      'No environment file was found at $envFile; continuing without env vars.',
     );
   }
 
@@ -68,5 +79,14 @@ Future<void> _hydrateAuthenticatedUser(ProviderContainer container) async {
 }
 
 Future<ProviderContainer> _initServices() async {
-  return ProviderContainer();
+  final prefs = await SharedPreferences.getInstance();
+  final localeService = LocaleService(prefs: prefs);
+  await localeService.loadLocale();
+
+  return ProviderContainer(
+    overrides: [
+      di.preferencesServiceProvider.overrideWithValue(prefs),
+      di.localeServiceProvider.overrideWithValue(localeService),
+    ],
+  );
 }

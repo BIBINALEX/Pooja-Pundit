@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:pooja_pundit/providers/booking_message.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
 import 'package:pooja_pundit/services/api/endpoints.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -23,7 +24,7 @@ class SocketService {
   SocketService();
 
   io.Socket? _socket;
-  final _statusController = StreamController<String>.broadcast();
+  final _statusController = StreamController<BookingMessage>.broadcast();
   final _bookingController = StreamController<PoojaRequest>.broadcast();
   final _connectionController = StreamController<bool>.broadcast();
   final _panditStatusController = StreamController<PanditStatus>.broadcast();
@@ -34,7 +35,7 @@ class SocketService {
   String? _lastActionError;
   String? _token;
 
-  Stream<String> get onStatusChanged => _statusController.stream;
+  Stream<BookingMessage> get onStatusChanged => _statusController.stream;
   Stream<PoojaRequest> get onBookingReceived => _bookingController.stream;
   Stream<bool> get onConnectionChanged => _connectionController.stream;
   Stream<PanditStatus> get onPanditStatusChanged =>
@@ -67,7 +68,9 @@ class SocketService {
     _socket!.onConnect((_) {
       _isConnected = true;
       _connectionController.add(true);
-      _statusController.add('Socket connected');
+      _statusController.add(
+        const BookingMessage(BookingMessageKey.socketConnected),
+      );
       if (!(_connectionCompleter?.isCompleted ?? true)) {
         _connectionCompleter!.complete();
       }
@@ -76,13 +79,20 @@ class SocketService {
     _socket!.onConnectError((data) {
       _isConnected = false;
       _connectionController.add(false);
-      _statusController.add('Socket unavailable: $data');
+      _statusController.add(
+        BookingMessage(
+          BookingMessageKey.socketUnavailable,
+          params: {'error': '$data'},
+        ),
+      );
     });
 
     _socket!.onDisconnect((_) {
       _isConnected = false;
       _connectionController.add(false);
-      _statusController.add('Socket disconnected');
+      _statusController.add(
+        const BookingMessage(BookingMessageKey.socketDisconnected),
+      );
     });
 
     _socket!.on('pandit:status', (data) {

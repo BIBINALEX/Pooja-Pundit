@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pooja_pundit/providers/booking_provider.dart'
     as booking_providers;
 import 'package:pooja_pundit/providers/tab_index_provider.dart'
@@ -7,6 +8,7 @@ import 'package:pooja_pundit/services/api/api_client.dart';
 import 'package:pooja_pundit/services/api/backend_api_service.dart';
 import 'package:pooja_pundit/services/auth/token_store.dart';
 import 'package:pooja_pundit/services/socket_service.dart';
+import 'package:pooja_pundit/services/localization/locale_service.dart';
 
 final tokenStoreProvider = Provider<AuthTokenStore>((ref) => AuthTokenStore());
 
@@ -22,6 +24,15 @@ final backendApiServiceProvider = Provider<BackendApiService>((ref) {
 final apiServiceProvider = backendApiServiceProvider;
 
 final socketServiceProvider = Provider<SocketService>((ref) => SocketService());
+
+final preferencesServiceProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError('SharedPreferences must be provided at bootstrap.');
+});
+
+final localeServiceProvider = Provider<LocaleService>((ref) {
+  final prefs = ref.watch(preferencesServiceProvider);
+  return LocaleService(prefs: prefs);
+});
 
 final bookingProvider = booking_providers.bookingProvider;
 final tabIndexProvider = tab_index_providers.tabIndexProvider;

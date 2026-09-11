@@ -103,7 +103,11 @@ class NotificationService {
     final rawValue =
         data['route'] ?? data['path'] ?? data['screen'] ?? data['screenName'];
     if (rawValue == null || rawValue.toString().trim().isEmpty) {
-      return '/';
+      return switch (data['type']?.toString()) {
+        'booking_accepted' || 'booking_completed' || 'test' => '/?tab=activity',
+        'booking_expired' => '/?tab=bookings',
+        _ => '/',
+      };
     }
 
     final rawRoute = rawValue.toString().trim();

@@ -5,7 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
+import 'language_selection_page.dart';
+import '../services/localization/catalog_localizations.dart';
 import '../providers/booking_provider.dart';
 
 class AccountPage extends ConsumerStatefulWidget {
@@ -28,6 +31,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
   }
 
   Future<void> _loadProfile() async {
+    final l10n = AppLocalizations.of(context);
     try {
       final pandit = await ref
           .read(di.backendApiServiceProvider)
@@ -36,33 +40,32 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       setState(() {
         _pandit = pandit;
         _isLoadingProfile = false;
-        _profileError = pandit == null ? 'Profile not found.' : null;
+        _profileError = pandit == null ? l10n.profileNotFound : null;
       });
     } catch (_) {
       if (!mounted) return;
       setState(() {
         _isLoadingProfile = false;
-        _profileError = 'Unable to load profile.';
+        _profileError = l10n.unableToLoadProfile;
       });
     }
   }
 
   Future<void> _logout() async {
+    final l10n = AppLocalizations.of(context);
     final shouldLogout = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Log out?'),
-        content: const Text(
-          'You will need to sign in again to access the app.',
-        ),
+        title: Text(l10n.logOutQuestion),
+        content: Text(l10n.signInAgainMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Log out'),
+            child: Text(l10n.logOut),
           ),
         ],
       ),
@@ -85,16 +88,16 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     context.go('/login');
     if (logoutError != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Logged out locally. Server sync failed.'),
-        ),
+        SnackBar(content: Text(l10n.loggedOutLocallyServerSyncFailed)),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final state = ref.watch(bookingProvider);
+    final locale = Localizations.localeOf(context);
     final profileDetails = [
       _pandit?.specialization,
       _pandit?.language,
@@ -107,7 +110,7 @@ class _AccountPageState extends ConsumerState<AccountPage> {
       children: [
         const Gap(12),
         Text(
-          'Account and settings',
+          l10n.accountAndSettings,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
         ),
         const Gap(16),
@@ -129,13 +132,13 @@ class _AccountPageState extends ConsumerState<AccountPage> {
             leading: const CircleAvatar(child: Icon(Icons.person)),
             title: Text(
               _isLoadingProfile
-                  ? 'Loading profile...'
-                  : _pandit?.name ?? 'Pandit profile',
+                  ? l10n.loadingProfile
+                  : _pandit?.name ?? l10n.panditProfile,
             ),
             subtitle: Text(
               _profileError ??
                   (profileDetails.isNotEmpty ? profileDetails : _pandit?.bio) ??
-                  'Your profile details will appear here',
+                  l10n.yourProfileDetailsWillAppearHere,
             ),
           ),
         ),
@@ -143,26 +146,43 @@ class _AccountPageState extends ConsumerState<AccountPage> {
         SwitchListTile.adaptive(
           value: true,
           onChanged: (_) {},
-          title: const Text('Accept instant requests'),
-          subtitle: const Text('Get notified when a new pooja request arrives'),
+          title: Text(l10n.acceptInstantRequests),
+          subtitle: Text(l10n.getNotifiedNewRequest),
         ),
         SwitchListTile.adaptive(
           value: state.isConnected,
           onChanged: (_) {},
-          title: const Text('Socket live updates'),
-          subtitle: const Text('Keep the booking feed synced'),
+          title: Text(l10n.socketLiveUpdates),
+          subtitle: Text(l10n.keepBookingFeedSynced),
         ),
         const Gap(12),
         ListTile(
-          title: const Text('Current booking status'),
-          subtitle: Text(state.active?.service ?? 'No active booking'),
+          leading: const Icon(Icons.language),
+          title: Text(l10n.languageLabel),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const LanguageSelectionPage(),
+              ),
+            );
+          },
+        ),
+        const Gap(12),
+        ListTile(
+          title: Text(l10n.currentBookingStatus),
+          subtitle: Text(
+            state.active == null
+                ? l10n.noActiveBooking
+                : localizedService(state.active!.service, locale),
+          ),
           trailing: const Icon(Icons.arrow_forward_ios),
         ),
         const Gap(12),
         ListTile(
           enabled: !_isLoggingOut,
           leading: const Icon(Icons.logout_rounded),
-          title: Text(_isLoggingOut ? 'Logging out...' : 'Log out'),
+          title: Text(_isLoggingOut ? l10n.loggingOut : l10n.logOut),
           onTap: _isLoggingOut ? null : _logout,
         ),
       ],

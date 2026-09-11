@@ -15,6 +15,7 @@
         "flutter",
         "flutter_dotenv",
         "flutter_local_notifications",
+        "flutter_localizations",
         "flutter_riverpod",
         "flutter_screenutil",
         "flutter_secure_storage",
@@ -227,7 +228,7 @@
     },
     {
       "name": "intl",
-      "version": "0.18.1",
+      "version": "0.20.2",
       "dependencies": [
         "clock",
         "meta",
@@ -285,6 +286,15 @@
       "name": "cupertino_icons",
       "version": "1.0.9",
       "dependencies": []
+    },
+    {
+      "name": "flutter_localizations",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "intl",
+        "path"
+      ]
     },
     {
       "name": "flutter",

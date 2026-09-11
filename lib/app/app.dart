@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/core/config/env_config.dart';
 import 'package:pooja_pundit/core/router/app_router.dart';
+import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
+import 'package:pooja_pundit/services/localization/locale_service.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFFFF6900);
@@ -10,19 +15,27 @@ class AppColors {
   static const Color darkTextColor = Color(0xFF2E2926);
 }
 
-class PoojaPunditApp extends StatelessWidget {
+class PoojaPunditApp extends ConsumerWidget {
   const PoojaPunditApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ScreenUtilInit(
       designSize: const Size(393, 852),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp.router(
-          title: 'Pooja Pundit',
+          title: EnvConfig.appName,
+          locale: ref.watch(localeProvider),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(
             useMaterial3: true,
             colorScheme: const ColorScheme.light(

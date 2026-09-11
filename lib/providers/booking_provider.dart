@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
+import 'package:pooja_pundit/providers/booking_message.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
 import 'package:pooja_pundit/services/api/endpoints.dart';
 import 'package:pooja_pundit/services/socket_service.dart';
 import 'package:pooja_pundit/services/api/backend_api_service.dart';
+
+export 'package:pooja_pundit/providers/booking_message.dart';
 
 enum BookingAction { accepting, rejecting, completing }
 
@@ -17,7 +20,9 @@ class BookingState {
     this.active,
     this.pendingBookingId,
     this.pendingAction,
-    this.connectionMessage = 'Waiting for bookings',
+    this.connectionMessage = const BookingMessage(
+      BookingMessageKey.waitingForBookings,
+    ),
     this.isConnected = false,
     this.status = PanditStatus.offline,
     this.pastPage = 1,
@@ -31,13 +36,13 @@ class BookingState {
   final PoojaRequest? active;
   final int? pendingBookingId;
   final BookingAction? pendingAction;
-  final String connectionMessage;
+  final BookingMessage connectionMessage;
   final bool isConnected;
   final PanditStatus status;
   final int pastPage;
   final int pastTotalPages;
   final bool isLoadingPast;
-  final String? alertMessage;
+  final BookingMessage? alertMessage;
 
   bool get isBusy => active != null || pendingBookingId != null;
 
@@ -49,13 +54,13 @@ class BookingState {
     int? pendingBookingId,
     bool clearPendingBooking = false,
     BookingAction? pendingAction,
-    String? connectionMessage,
+    BookingMessage? connectionMessage,
     bool? isConnected,
     PanditStatus? status,
     int? pastPage,
     int? pastTotalPages,
     bool? isLoadingPast,
-    String? alertMessage,
+    BookingMessage? alertMessage,
   }) {
     return BookingState(
       available: available ?? this.available,
@@ -174,13 +179,19 @@ class BookingController extends Notifier<BookingState>
             : null,
         connectionMessage: joined != null
             ? _statusMessage(joined.status)
-            : 'Unable to go online: ${_socketService.lastActionError ?? 'unknown error'}',
+            : BookingMessage(
+                BookingMessageKey.unableToGoOnline,
+                params: {'error': _socketService.lastActionError ?? ''},
+              ),
         isConnected: joined != null,
         status: joined?.status ?? PanditStatus.offline,
       );
     } catch (error) {
       state = state.copyWith(
-        connectionMessage: 'Socket unavailable: $error',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.socketUnavailable,
+          params: {'error': '$error'},
+        ),
         isConnected: false,
       );
     } finally {
@@ -192,8 +203,10 @@ class BookingController extends Notifier<BookingState>
     final joined = await _socketService.joinPandit();
     if (joined == null && _wantsToBeOnline) {
       state = state.copyWith(
-        connectionMessage:
-            'Unable to stay online: ${_socketService.lastActionError ?? 'unknown error'}',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.unableToStayOnline,
+          params: {'error': _socketService.lastActionError ?? ''},
+        ),
         isConnected: false,
         status: PanditStatus.offline,
       );
@@ -208,14 +221,16 @@ class BookingController extends Notifier<BookingState>
     }
   }
 
-  String _statusMessage(PanditStatus status) {
+  BookingMessage _statusMessage(PanditStatus status) {
     switch (status) {
       case PanditStatus.online:
-        return 'Online and ready for bookings';
+        return const BookingMessage(
+          BookingMessageKey.onlineAndReadyForBookings,
+        );
       case PanditStatus.busy:
-        return 'Busy with an active booking';
+        return const BookingMessage(BookingMessageKey.busyWithActiveBooking);
       case PanditStatus.offline:
-        return 'Offline';
+        return const BookingMessage(BookingMessageKey.offline);
     }
   }
 
@@ -245,7 +260,10 @@ class BookingController extends Notifier<BookingState>
     } catch (error) {
       state = state.copyWith(
         isLoadingPast: false,
-        connectionMessage: 'Could not load past bookings: $error',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.couldNotLoadPastBookings,
+          params: {'error': '$error'},
+        ),
       );
     }
   }
@@ -310,29 +328,44 @@ class BookingController extends Notifier<BookingState>
         available: state.available
             .where((item) => item.id != request.id)
             .toList(),
-        connectionMessage: 'Accepted ${accepted.fullname}',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.acceptedBooking,
+          params: {'name': accepted.fullname},
+        ),
         status: PanditStatus.busy,
       );
     } catch (error) {
       state = state.copyWith(
-        connectionMessage: 'Could not accept booking: $error',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.couldNotAcceptBooking,
+          params: {'error': '$error'},
+        ),
       );
     } finally {
       state = state.copyWith(clearPendingBooking: true);
     }
   }
 
-  String _offerClosedMessage(int bookingId, String? reason) {
+  BookingMessage _offerClosedMessage(int bookingId, String? reason) {
     if (reason == 'taken') {
-      return 'Booking #$bookingId was accepted by another pandit.';
+      return BookingMessage(
+        BookingMessageKey.bookingTakenByAnother,
+        params: {'id': '$bookingId'},
+      );
     }
     if (reason == 'expired') {
-      return 'Booking #$bookingId offer expired.';
+      return BookingMessage(
+        BookingMessageKey.bookingOfferExpired,
+        params: {'id': '$bookingId'},
+      );
     }
-    return 'Booking #$bookingId is no longer available.';
+    return BookingMessage(
+      BookingMessageKey.bookingNoLongerAvailable,
+      params: {'id': '$bookingId'},
+    );
   }
 
-  String? _closedAcceptError(int bookingId) {
+  BookingMessage? _closedAcceptError(int bookingId) {
     final error = _socketService.lastActionError?.toLowerCase();
     if (error == null) return null;
     if (error.contains('taken') || error.contains('another pandit')) {
@@ -365,11 +398,17 @@ class BookingController extends Notifier<BookingState>
         available: state.available
             .where((item) => item.id != request.id)
             .toList(),
-        connectionMessage: 'Rejected ${request.fullname}',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.rejectedBooking,
+          params: {'name': request.fullname},
+        ),
       );
     } catch (error) {
       state = state.copyWith(
-        connectionMessage: 'Could not reject booking: $error',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.couldNotRejectBooking,
+          params: {'error': '$error'},
+        ),
       );
     } finally {
       state = state.copyWith(clearPendingBooking: true);
@@ -399,12 +438,18 @@ class BookingController extends Notifier<BookingState>
         active: null,
         clearActive: true,
         past: _mergeBookings([result, ...state.past], const []),
-        connectionMessage: 'Completed ${completed.fullname}',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.completedBooking,
+          params: {'name': completed.fullname},
+        ),
         status: PanditStatus.online,
       );
     } catch (error) {
       state = state.copyWith(
-        connectionMessage: 'Could not complete booking: $error',
+        connectionMessage: BookingMessage(
+          BookingMessageKey.couldNotCompleteBooking,
+          params: {'error': '$error'},
+        ),
       );
     } finally {
       state = state.copyWith(clearPendingBooking: true);

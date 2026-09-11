@@ -8,13 +8,9 @@
 		<data>
 		nHsEkmlVCwRZHdUPhDWVtuHob3A=
 		</data>
-		<key>flutter_assets/.env</key>
-		<data>
-		dUFPxxyDWl84Ly6rNfiWw7QxxTA=
-		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		E94wmyPOPuCOdYmCL31g88O5jB8=
+		cZY57PMHuiZ5SlUZeOVjGOjOxIk=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,11 +18,19 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		z67V4ioVZ2SYWwAh+zQXI2i2jMo=
+		2ZwY/gujN9VyM4r3UfzDL2H3OiI=
 		</data>
 		<key>flutter_assets/NativeAssetsManifest.json</key>
 		<data>
 		BASHf/14q0VcgmnKtkQLt+qMEqo=
+		</data>
+		<key>flutter_assets/env/.env.development</key>
+		<data>
+		tdm21XzCpAT+18+fty8iNonKb+4=
+		</data>
+		<key>flutter_assets/env/.env.production</key>
+		<data>
+		I2+8gyuuiuE6EFSI3sFGjPocoy4=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -38,7 +42,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		6umtrGsupXsSAIo5RmOwiRu+adM=
+		Tv8e6rPxIH6rcDOix16K5kkpPC4=
 		</data>
 		<key>flutter_assets/lib/assets/images/Apple%20Default.svg</key>
 		<data>
@@ -167,18 +171,11 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>flutter_assets/.env</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HtVdz64njEB8ogEvjg+AdavD6a6rINJqQT+yZ1g5WSs=
-			</data>
-		</dict>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5gl1mCp5ByAysGLvANG/DgaoD700VtJOcFfKl9Tg3IM=
+			J2OPOSPmWfK/L8+IOSiB7kit+TudvjE01+EoC5C+BBs=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -192,7 +189,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TNib0rnhcpc2w6le+TKFE+2ZL1nXNNxJ2nVVt/k48rE=
+			qdeggUwuFbSL+1DLXewpkqKGCu95agkR+lr3UHuUMoA=
 			</data>
 		</dict>
 		<key>flutter_assets/NativeAssetsManifest.json</key>
@@ -200,6 +197,20 @@
 			<key>hash2</key>
 			<data>
 			Ylst3tzkLj0hjOuIabyRGejeqGUKbLJKt3nVAIBVsUE=
+			</data>
+		</dict>
+		<key>flutter_assets/env/.env.development</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tRjMDf2hs9n2jVE2YwQKJqPfenZJ+2CCcwt/VUAXCyU=
+			</data>
+		</dict>
+		<key>flutter_assets/env/.env.production</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Zrz+pRtBzcC1tJFJgK56d2r/lXPhUXBpOsauFBxt8w0=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -220,7 +231,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rhQitRoZQEzZpB3UDfj4fYUJPfvGS0SnOge1tRi8lts=
+			oB38jrgciVCGexhe2Tmp4zNf/UMTNyoZ4xPFQugse+U=
 			</data>
 		</dict>
 		<key>flutter_assets/lib/assets/images/Apple%20Default.svg</key>

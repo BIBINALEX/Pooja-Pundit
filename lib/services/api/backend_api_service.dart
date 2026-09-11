@@ -1,4 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 import '../auth/token_store.dart';
 import 'api_client.dart';
@@ -25,6 +29,25 @@ class BackendApiService {
     );
     _firebaseIdToken = null;
     _client.setToken(tokens.accessToken);
+    unawaited(_syncFcmToken());
+  }
+
+  Future<void> _syncFcmToken() async {
+    try {
+      final token = await FirebaseMessaging.instance.getToken();
+      if (token == null || token.isEmpty) return;
+      await updatePanditFcmToken(token);
+    } catch (error) {
+      debugPrint('Failed to sync pandit FCM token: $error');
+    }
+  }
+
+  Future<void> updatePanditFcmToken(String? token) async {
+    await _client.post(
+      Endpoints.panditFcmToken,
+      requireAuth: true,
+      data: {'token': token},
+    );
   }
 
   Future<AuthSession?> restoreSession() async {
@@ -234,6 +257,11 @@ class BackendApiService {
     try {
       if (accessToken != null && accessToken.isNotEmpty) {
         _client.setToken(accessToken);
+        try {
+          await updatePanditFcmToken(null);
+        } catch (error) {
+          debugPrint('Failed to clear pandit FCM token: $error');
+        }
         await _client.post(Endpoints.logout, requireAuth: true);
       }
     } catch (error) {
