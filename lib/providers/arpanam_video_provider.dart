@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -10,7 +12,14 @@ import 'package:pooja_pundit/services/api/backend_api_service.dart';
 
 enum ArpanamVideoStatus { idle, compressing, uploading, uploaded, failed }
 
-enum ArpanamVideoError { invalidVideo, compressionFailed, uploadFailed }
+enum ArpanamVideoError {
+  pickerUnavailable,
+  invalidVideo,
+  compressionFailed,
+  uploadFailed,
+}
+
+enum ArpanamVideoSource { camera, gallery, files }
 
 class ArpanamVideoState {
   const ArpanamVideoState({
@@ -18,14 +27,12 @@ class ArpanamVideoState {
     this.file,
     this.progress = 0,
     this.errorType,
-    this.errorDetails,
   });
 
   final ArpanamVideoStatus status;
   final File? file;
   final double progress;
   final ArpanamVideoError? errorType;
-  final String? errorDetails;
 
   bool get isUploading =>
       status == ArpanamVideoStatus.compressing ||
@@ -37,7 +44,6 @@ class ArpanamVideoState {
     File? file,
     double? progress,
     ArpanamVideoError? errorType,
-    String? errorDetails,
     bool clearError = false,
   }) {
     return ArpanamVideoState(
@@ -45,7 +51,6 @@ class ArpanamVideoState {
       file: file ?? this.file,
       progress: progress ?? this.progress,
       errorType: clearError ? null : errorType ?? this.errorType,
-      errorDetails: clearError ? null : errorDetails ?? this.errorDetails,
     );
   }
 }
@@ -69,13 +74,12 @@ class ArpanamVideoController extends Notifier<ArpanamVideoState> {
     return const ArpanamVideoState();
   }
 
-  Future<void> pickAndUpload() async {
+  Future<void> pickAndUpload(ArpanamVideoSource source) async {
     if (state.isUploading || state.isUploaded) return;
 
-    final picked = await _picker.pickVideo(source: ImageSource.gallery);
-    if (picked == null) return;
-
     try {
+      final picked = await _pickVideo(source);
+      if (picked == null) return;
       if (!await _isValidVideo(picked)) {
         throw const _InvalidVideoException();
       }
@@ -112,6 +116,7 @@ class ArpanamVideoController extends Notifier<ArpanamVideoState> {
       state = state.copyWith(status: ArpanamVideoStatus.uploaded, progress: 1);
     } catch (error) {
       final errorType = switch (error) {
+        PlatformException() => ArpanamVideoError.pickerUnavailable,
         _InvalidVideoException() => ArpanamVideoError.invalidVideo,
         _VideoCompressionException() => ArpanamVideoError.compressionFailed,
         _ => ArpanamVideoError.uploadFailed,
@@ -119,10 +124,23 @@ class ArpanamVideoController extends Notifier<ArpanamVideoState> {
       state = state.copyWith(
         status: ArpanamVideoStatus.failed,
         errorType: errorType,
-        errorDetails: errorType == ArpanamVideoError.uploadFailed
-            ? '$error'
-            : null,
       );
+    }
+  }
+
+  Future<XFile?> _pickVideo(ArpanamVideoSource source) async {
+    switch (source) {
+      case ArpanamVideoSource.camera:
+      case ArpanamVideoSource.gallery:
+        return _picker.pickVideo(
+          source: source == ArpanamVideoSource.camera
+              ? ImageSource.camera
+              : ImageSource.gallery,
+        );
+      case ArpanamVideoSource.files:
+        final result = await FilePicker.pickFile(type: FileType.video);
+        final path = result?.path;
+        return path == null ? null : XFile(path);
     }
   }
 

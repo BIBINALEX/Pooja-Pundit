@@ -325,16 +325,28 @@ class AppLocalizationsTa extends AppLocalizations {
   String get videoUploaded => 'அர்ப்பணத்தின் காணொளி பதிவேற்றப்பட்டது';
 
   @override
+  String get videoFromCamera => 'காணொளியைப் பதிவு செய்';
+
+  @override
+  String get videoFromGallery => 'கேலரியிலிருந்து தேர்ந்தெடு';
+
+  @override
+  String get videoFromFiles => 'கோப்புகளிலிருந்து தேர்ந்தெடு';
+
+  @override
   String get invalidArpanamVideo =>
       'சரியான காணொளிக் கோப்பைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'காணொளியைப் பதிவு செய்யவோ தேர்ந்தெடுக்கவோ முடியவில்லை. செயலியை மறுதொடக்கம் செய்து மீண்டும் முயற்சிக்கவும்.';
 
   @override
   String get videoCompressionFailed => 'காணொளியைச் சுருக்க முடியவில்லை.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'காணொளிப் பதிவேற்றம் தோல்வியடைந்தது: $error';
-  }
+  String get videoUploadFailed =>
+      'காணொளியைப் பதிவேற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
 
   @override
   String get freeToAcceptNext =>

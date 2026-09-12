@@ -97,16 +97,13 @@
     "startBooking": "ಅರ್ಪಣಮ್ ಪ್ರಾರಂಭಿಸಿ",
     "uploadArpanamVideo": "ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಸೇರಿಸಿ",
     "videoUploaded": "ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ",
+    "videoFromCamera": "ವೀಡಿಯೊ ರೆಕಾರ್ಡ್ ಮಾಡಿ",
+    "videoFromGallery": "ಗ್ಯಾಲರಿಯಿಂದ ಆಯ್ಕೆಮಾಡಿ",
+    "videoFromFiles": "ಫೈಲ್‌ಗಳಿಂದ ಆಯ್ಕೆಮಾಡಿ",
     "invalidArpanamVideo": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ವೀಡಿಯೊ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.",
+    "videoPickerUnavailable": "ವೀಡಿಯೊ ರೆಕಾರ್ಡ್ ಅಥವಾ ಆಯ್ಕೆ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಆ್ಯಪ್ ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "videoCompressionFailed": "ವೀಡಿಯೊವನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಲಾಗಲಿಲ್ಲ.",
-    "videoUploadFailed": "ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "freeToAcceptNext": "ಮುಂದಿನ ಲಭ್ಯವಿರುವ ಬುಕಿಂಗ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನೀವು ಮುಕ್ತರಾಗಿದ್ದೀರಿ.",
     "noBookingsAvailable": "ಈಗ ಯಾವುದೇ ಬುಕಿಂಗ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ.",
     "dobShort": "ಜನ್ಮ ದಿನಾಂಕ",

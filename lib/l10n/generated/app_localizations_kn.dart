@@ -324,15 +324,27 @@ class AppLocalizationsKn extends AppLocalizations {
   String get videoUploaded => 'ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ';
 
   @override
+  String get videoFromCamera => 'ವೀಡಿಯೊ ರೆಕಾರ್ಡ್ ಮಾಡಿ';
+
+  @override
+  String get videoFromGallery => 'ಗ್ಯಾಲರಿಯಿಂದ ಆಯ್ಕೆಮಾಡಿ';
+
+  @override
+  String get videoFromFiles => 'ಫೈಲ್‌ಗಳಿಂದ ಆಯ್ಕೆಮಾಡಿ';
+
+  @override
   String get invalidArpanamVideo => 'ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ವೀಡಿಯೊ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'ವೀಡಿಯೊ ರೆಕಾರ್ಡ್ ಅಥವಾ ಆಯ್ಕೆ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಆ್ಯಪ್ ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
 
   @override
   String get videoCompressionFailed => 'ವೀಡಿಯೊವನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಲಾಗಲಿಲ್ಲ.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ: $error';
-  }
+  String get videoUploadFailed =>
+      'ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
 
   @override
   String get freeToAcceptNext =>

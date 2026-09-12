@@ -322,15 +322,27 @@ class AppLocalizationsHi extends AppLocalizations {
   String get videoUploaded => 'अरपनम का वीडियो अपलोड हो गया';
 
   @override
+  String get videoFromCamera => 'वीडियो रिकॉर्ड करें';
+
+  @override
+  String get videoFromGallery => 'गैलरी से चुनें';
+
+  @override
+  String get videoFromFiles => 'फ़ाइलों से चुनें';
+
+  @override
   String get invalidArpanamVideo => 'कृपया मान्य वीडियो फ़ाइल चुनें।';
+
+  @override
+  String get videoPickerUnavailable =>
+      'वीडियो रिकॉर्ड या चुनना उपलब्ध नहीं है। कृपया ऐप को पुनः शुरू करके प्रयास करें।';
 
   @override
   String get videoCompressionFailed => 'वीडियो को संपीड़ित नहीं किया जा सका।';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'वीडियो अपलोड विफल हुआ: $error';
-  }
+  String get videoUploadFailed =>
+      'वीडियो अपलोड नहीं हो सका। कृपया फिर से प्रयास करें।';
 
   @override
   String get freeToAcceptNext =>

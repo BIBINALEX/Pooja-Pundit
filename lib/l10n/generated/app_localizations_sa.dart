@@ -325,15 +325,27 @@ class AppLocalizationsSa extends AppLocalizations {
   String get videoUploaded => 'अर्पणस्य चलचित्रम् उपारोपितम्';
 
   @override
+  String get videoFromCamera => 'चलचित्रं ध्वनिचित्रयन्त्रेण गृह्णन्तु';
+
+  @override
+  String get videoFromGallery => 'दीर्घिकातः चिनुत';
+
+  @override
+  String get videoFromFiles => 'सञ्चिकाभ्यः चिनुत';
+
+  @override
   String get invalidArpanamVideo => 'कृपया मान्यं चलचित्रसञ्चिकां चिनुत।';
+
+  @override
+  String get videoPickerUnavailable =>
+      'चलचित्रस्य ध्वनिचित्रणं चयनं वा उपलब्धं नास्ति। अनुप्रयोगं पुनः प्रारभ्य प्रयतताम्।';
 
   @override
   String get videoCompressionFailed => 'चलचित्रं सङ्कुचितुं न शक्यते।';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'चलचित्रस्य उपारोपणं विफलम्: $error';
-  }
+  String get videoUploadFailed =>
+      'चलचित्रम् उपारोपयितुं न शक्यते। पुनः प्रयतताम्।';
 
   @override
   String get freeToAcceptNext =>

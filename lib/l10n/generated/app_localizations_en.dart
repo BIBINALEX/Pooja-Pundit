@@ -323,15 +323,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get videoUploaded => 'Arpanam video uploaded';
 
   @override
+  String get videoFromCamera => 'Record video';
+
+  @override
+  String get videoFromGallery => 'Choose from gallery';
+
+  @override
+  String get videoFromFiles => 'Choose from files';
+
+  @override
   String get invalidArpanamVideo => 'Please select a valid video file.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'Video recording or selection is unavailable. Please restart the app and try again.';
 
   @override
   String get videoCompressionFailed => 'The video could not be compressed.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'The video upload failed: $error';
-  }
+  String get videoUploadFailed =>
+      'We couldn\'t upload the video. Please try again.';
 
   @override
   String get freeToAcceptNext =>

@@ -97,16 +97,13 @@
     "startBooking": "ਅਰਪਣਮ ਸ਼ੁਰੂ ਕਰੋ",
     "uploadArpanamVideo": "ਅਰਪਣਮ ਦੀ ਵੀਡੀਓ ਸ਼ਾਮਲ ਕਰੋ",
     "videoUploaded": "ਅਰਪਣਮ ਦੀ ਵੀਡੀਓ ਅੱਪਲੋਡ ਹੋ ਗਈ",
+    "videoFromCamera": "ਵੀਡੀਓ ਰਿਕਾਰਡ ਕਰੋ",
+    "videoFromGallery": "ਗੈਲਰੀ ਵਿੱਚੋਂ ਚੁਣੋ",
+    "videoFromFiles": "ਫਾਈਲਾਂ ਵਿੱਚੋਂ ਚੁਣੋ",
     "invalidArpanamVideo": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੈਧ ਵੀਡੀਓ ਫਾਈਲ ਚੁਣੋ।",
+    "videoPickerUnavailable": "ਵੀਡੀਓ ਰਿਕਾਰਡ ਜਾਂ ਚੁਣਨਾ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਕੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
     "videoCompressionFailed": "ਵੀਡੀਓ ਨੂੰ ਸੰਕੁਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।",
-    "videoUploadFailed": "ਵੀਡੀਓ ਅੱਪਲੋਡ ਅਸਫਲ ਹੋਈ: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "ਵੀਡੀਓ ਅੱਪਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
     "freeToAcceptNext": "ਤੁਸੀਂ ਅਗਲੀ ਉਪਲਬਧ ਬੁਕਿੰਗ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਸੁਤੰਤਰ ਹੋ।",
     "noBookingsAvailable": "ਹੁਣੇ ਕੋਈ ਬੁਕਿੰਗ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
     "dobShort": "ਜਨਮ ਮਿਤੀ",

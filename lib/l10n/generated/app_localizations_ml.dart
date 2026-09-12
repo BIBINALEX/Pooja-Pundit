@@ -326,15 +326,27 @@ class AppLocalizationsMl extends AppLocalizations {
   String get videoUploaded => 'അർപ്പണത്തിന്റെ വീഡിയോ അപ്‌ലോഡ് ചെയ്തു';
 
   @override
+  String get videoFromCamera => 'വീഡിയോ റെക്കോർഡ് ചെയ്യുക';
+
+  @override
+  String get videoFromGallery => 'ഗാലറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക';
+
+  @override
+  String get videoFromFiles => 'ഫയലുകളിൽ നിന്ന് തിരഞ്ഞെടുക്കുക';
+
+  @override
   String get invalidArpanamVideo => 'സാധുവായ ഒരു വീഡിയോ ഫയൽ തിരഞ്ഞെടുക്കുക.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'വീഡിയോ റെക്കോർഡ് ചെയ്യുകയോ തിരഞ്ഞെടുക്കുകയോ ലഭ്യമല്ല. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.';
 
   @override
   String get videoCompressionFailed => 'വീഡിയോ കംപ്രസ് ചെയ്യാൻ കഴിഞ്ഞില്ല.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'വീഡിയോ അപ്‌ലോഡ് പരാജയപ്പെട്ടു: $error';
-  }
+  String get videoUploadFailed =>
+      'വീഡിയോ അപ്‌ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.';
 
   @override
   String get freeToAcceptNext =>

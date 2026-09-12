@@ -323,15 +323,26 @@ class AppLocalizationsBn extends AppLocalizations {
   String get videoUploaded => 'আর্পণমের ভিডিও আপলোড হয়েছে';
 
   @override
+  String get videoFromCamera => 'ভিডিও রেকর্ড করুন';
+
+  @override
+  String get videoFromGallery => 'গ্যালারি থেকে বেছে নিন';
+
+  @override
+  String get videoFromFiles => 'ফাইল থেকে বেছে নিন';
+
+  @override
   String get invalidArpanamVideo => 'একটি বৈধ ভিডিও ফাইল নির্বাচন করুন।';
+
+  @override
+  String get videoPickerUnavailable =>
+      'ভিডিও রেকর্ড বা নির্বাচন করা যাচ্ছে না। অ্যাপটি পুনরায় চালু করে আবার চেষ্টা করুন।';
 
   @override
   String get videoCompressionFailed => 'ভিডিওটি সংকুচিত করা যায়নি।';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'ভিডিও আপলোড ব্যর্থ হয়েছে: $error';
-  }
+  String get videoUploadFailed => 'ভিডিও আপলোড করা যায়নি। আবার চেষ্টা করুন।';
 
   @override
   String get freeToAcceptNext =>

@@ -696,11 +696,35 @@ abstract class AppLocalizations {
   /// **'Arpanam video uploaded'**
   String get videoUploaded;
 
+  /// No description provided for @videoFromCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Record video'**
+  String get videoFromCamera;
+
+  /// No description provided for @videoFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get videoFromGallery;
+
+  /// No description provided for @videoFromFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from files'**
+  String get videoFromFiles;
+
   /// No description provided for @invalidArpanamVideo.
   ///
   /// In en, this message translates to:
   /// **'Please select a valid video file.'**
   String get invalidArpanamVideo;
+
+  /// No description provided for @videoPickerUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Video recording or selection is unavailable. Please restart the app and try again.'**
+  String get videoPickerUnavailable;
 
   /// No description provided for @videoCompressionFailed.
   ///
@@ -711,8 +735,8 @@ abstract class AppLocalizations {
   /// No description provided for @videoUploadFailed.
   ///
   /// In en, this message translates to:
-  /// **'The video upload failed: {error}'**
-  String videoUploadFailed(String error);
+  /// **'We couldn\'t upload the video. Please try again.'**
+  String get videoUploadFailed;
 
   /// No description provided for @freeToAcceptNext.
   ///

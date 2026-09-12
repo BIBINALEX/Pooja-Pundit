@@ -149,16 +149,13 @@
     "startBooking": "Start Arpanam",
     "uploadArpanamVideo": "Add Arpanam video",
     "videoUploaded": "Arpanam video uploaded",
+    "videoFromCamera": "Record video",
+    "videoFromGallery": "Choose from gallery",
+    "videoFromFiles": "Choose from files",
     "invalidArpanamVideo": "Please select a valid video file.",
+    "videoPickerUnavailable": "Video recording or selection is unavailable. Please restart the app and try again.",
     "videoCompressionFailed": "The video could not be compressed.",
-    "videoUploadFailed": "The video upload failed: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "We couldn't upload the video. Please try again.",
     "freeToAcceptNext": "You are free to accept the next available booking.",
     "noBookingsAvailable": "No bookings available right now.",
     "dobShort": "DOB",

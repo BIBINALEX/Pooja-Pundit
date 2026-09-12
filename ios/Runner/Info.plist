@@ -39,6 +39,10 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select an Arpanam video to upload.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Record an Arpanam video to upload.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record audio with an Arpanam video.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -97,16 +97,13 @@
     "startBooking": "అర్పణం ప్రారంభించండి",
     "uploadArpanamVideo": "అర్పణం వీడియోను జోడించండి",
     "videoUploaded": "అర్పణం వీడియో అప్‌లోడ్ అయింది",
+    "videoFromCamera": "వీడియోను రికార్డ్ చేయండి",
+    "videoFromGallery": "గ్యాలరీ నుండి ఎంచుకోండి",
+    "videoFromFiles": "ఫైళ్ల నుండి ఎంచుకోండి",
     "invalidArpanamVideo": "దయచేసి చెల్లుబాటు అయ్యే వీడియో ఫైల్‌ను ఎంచుకోండి.",
+    "videoPickerUnavailable": "వీడియోను రికార్డ్ చేయడం లేదా ఎంచుకోవడం అందుబాటులో లేదు. యాప్‌ను పునఃప్రారంభించి మళ్లీ ప్రయత్నించండి.",
     "videoCompressionFailed": "వీడియోను కుదించడం సాధ్యం కాలేదు.",
-    "videoUploadFailed": "వీడియో అప్‌లోడ్ విఫలమైంది: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "వీడియోను అప్‌లోడ్ చేయడం సాధ్యం కాలేదు. దయచేసి మళ్లీ ప్రయత్నించండి.",
     "freeToAcceptNext": "తదుపరి అందుబాటులో ఉన్న బుకింగ్‌ను ఆమోదించడానికి మీరు స్వేచ్ఛగా ఉన్నారు.",
     "noBookingsAvailable": "ప్రస్తుతం బుకింగ్‌లు అందుబాటులో లేవు.",
     "dobShort": "పుట్టిన తేదీ",

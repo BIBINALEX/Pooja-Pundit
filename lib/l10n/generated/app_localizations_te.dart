@@ -327,16 +327,28 @@ class AppLocalizationsTe extends AppLocalizations {
   String get videoUploaded => 'అర్పణం వీడియో అప్‌లోడ్ అయింది';
 
   @override
+  String get videoFromCamera => 'వీడియోను రికార్డ్ చేయండి';
+
+  @override
+  String get videoFromGallery => 'గ్యాలరీ నుండి ఎంచుకోండి';
+
+  @override
+  String get videoFromFiles => 'ఫైళ్ల నుండి ఎంచుకోండి';
+
+  @override
   String get invalidArpanamVideo =>
       'దయచేసి చెల్లుబాటు అయ్యే వీడియో ఫైల్‌ను ఎంచుకోండి.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'వీడియోను రికార్డ్ చేయడం లేదా ఎంచుకోవడం అందుబాటులో లేదు. యాప్‌ను పునఃప్రారంభించి మళ్లీ ప్రయత్నించండి.';
 
   @override
   String get videoCompressionFailed => 'వీడియోను కుదించడం సాధ్యం కాలేదు.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'వీడియో అప్‌లోడ్ విఫలమైంది: $error';
-  }
+  String get videoUploadFailed =>
+      'వీడియోను అప్‌లోడ్ చేయడం సాధ్యం కాలేదు. దయచేసి మళ్లీ ప్రయత్నించండి.';
 
   @override
   String get freeToAcceptNext =>

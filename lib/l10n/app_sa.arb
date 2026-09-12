@@ -97,16 +97,13 @@
     "startBooking": "अर्पणम् आरभन्ताम्",
     "uploadArpanamVideo": "अर्पणस्य चलचित्रं योजयन्तु",
     "videoUploaded": "अर्पणस्य चलचित्रम् उपारोपितम्",
+    "videoFromCamera": "चलचित्रं ध्वनिचित्रयन्त्रेण गृह्णन्तु",
+    "videoFromGallery": "दीर्घिकातः चिनुत",
+    "videoFromFiles": "सञ्चिकाभ्यः चिनुत",
     "invalidArpanamVideo": "कृपया मान्यं चलचित्रसञ्चिकां चिनुत।",
+    "videoPickerUnavailable": "चलचित्रस्य ध्वनिचित्रणं चयनं वा उपलब्धं नास्ति। अनुप्रयोगं पुनः प्रारभ्य प्रयतताम्।",
     "videoCompressionFailed": "चलचित्रं सङ्कुचितुं न शक्यते।",
-    "videoUploadFailed": "चलचित्रस्य उपारोपणं विफलम्: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "चलचित्रम् उपारोपयितुं न शक्यते। पुनः प्रयतताम्।",
     "freeToAcceptNext": "भवान् अग्रिम-उपलब्ध-आरक्षणं स्वीकर्तुं स्वतन्त्रः अस्ति।",
     "noBookingsAvailable": "सम्प्रति कोऽपि आरक्षणः उपलब्धः नास्ति।",
     "dobShort": "जन्मदिनाङ्कः",

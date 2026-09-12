@@ -322,15 +322,26 @@ class AppLocalizationsGu extends AppLocalizations {
   String get videoUploaded => 'અર્પણમનો વિડિયો અપલોડ થયો';
 
   @override
+  String get videoFromCamera => 'વિડિયો રેકોર્ડ કરો';
+
+  @override
+  String get videoFromGallery => 'ગેલેરીમાંથી પસંદ કરો';
+
+  @override
+  String get videoFromFiles => 'ફાઇલોમાંથી પસંદ કરો';
+
+  @override
   String get invalidArpanamVideo => 'કૃપા કરીને માન્ય વિડિયો ફાઇલ પસંદ કરો.';
+
+  @override
+  String get videoPickerUnavailable =>
+      'વિડિયો રેકોર્ડ અથવા પસંદ કરી શકાતો નથી. એપને ફરી શરૂ કરીને ફરી પ્રયાસ કરો.';
 
   @override
   String get videoCompressionFailed => 'વિડિયો સંકુચિત થઈ શક્યો નથી.';
 
   @override
-  String videoUploadFailed(String error) {
-    return 'વિડિયો અપલોડ નિષ્ફળ થયું: $error';
-  }
+  String get videoUploadFailed => 'વિડિયો અપલોડ થઈ શક્યો નથી. ફરી પ્રયાસ કરો.';
 
   @override
   String get freeToAcceptNext =>

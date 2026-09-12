@@ -38,6 +38,40 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
     }
   }
 
+  Future<void> _chooseVideoSource(int bookingId) async {
+    final l10n = AppLocalizations.of(context);
+    final source = await showModalBottomSheet<ArpanamVideoSource>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined),
+              title: Text(l10n.videoFromCamera),
+              onTap: () => Navigator.pop(context, ArpanamVideoSource.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: Text(l10n.videoFromGallery),
+              onTap: () => Navigator.pop(context, ArpanamVideoSource.gallery),
+            ),
+            ListTile(
+              leading: const Icon(Icons.folder_outlined),
+              title: Text(l10n.videoFromFiles),
+              onTap: () => Navigator.pop(context, ArpanamVideoSource.files),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (source != null && mounted) {
+      await ref
+          .read(arpanamVideoProvider(bookingId).notifier)
+          .pickAndUpload(source);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -129,13 +163,7 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                   OutlinedButton.icon(
                     onPressed: videoState.isUploading || videoState.isUploaded
                         ? null
-                        : ref
-                              .read(
-                                arpanamVideoProvider(
-                                  activeBooking!.id!,
-                                ).notifier,
-                              )
-                              .pickAndUpload,
+                        : () => _chooseVideoSource(activeBooking!.id!),
                     icon: Icon(
                       videoState.isUploaded
                           ? Icons.check_circle_outline
@@ -159,12 +187,14 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                   if (videoState.errorType != null)
                     Text(
                       switch (videoState.errorType!) {
+                        ArpanamVideoError.pickerUnavailable =>
+                          l10n.videoPickerUnavailable,
                         ArpanamVideoError.invalidVideo =>
                           l10n.invalidArpanamVideo,
                         ArpanamVideoError.compressionFailed =>
                           l10n.videoCompressionFailed,
                         ArpanamVideoError.uploadFailed =>
-                          l10n.videoUploadFailed(videoState.errorDetails ?? ''),
+                          l10n.videoUploadFailed,
                       },
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,

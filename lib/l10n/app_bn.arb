@@ -97,16 +97,13 @@
     "startBooking": "আর্পণম শুরু করুন",
     "uploadArpanamVideo": "আর্পণমের ভিডিও যোগ করুন",
     "videoUploaded": "আর্পণমের ভিডিও আপলোড হয়েছে",
+    "videoFromCamera": "ভিডিও রেকর্ড করুন",
+    "videoFromGallery": "গ্যালারি থেকে বেছে নিন",
+    "videoFromFiles": "ফাইল থেকে বেছে নিন",
     "invalidArpanamVideo": "একটি বৈধ ভিডিও ফাইল নির্বাচন করুন।",
+    "videoPickerUnavailable": "ভিডিও রেকর্ড বা নির্বাচন করা যাচ্ছে না। অ্যাপটি পুনরায় চালু করে আবার চেষ্টা করুন।",
     "videoCompressionFailed": "ভিডিওটি সংকুচিত করা যায়নি।",
-    "videoUploadFailed": "ভিডিও আপলোড ব্যর্থ হয়েছে: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "ভিডিও আপলোড করা যায়নি। আবার চেষ্টা করুন।",
     "freeToAcceptNext": "আপনি পরবর্তী উপলব্ধ বুকিং গ্রহণ করতে স্বাধীন।",
     "noBookingsAvailable": "এখন কোনো বুকিং উপলব্ধ নেই।",
     "dobShort": "জন্ম তারিখ",

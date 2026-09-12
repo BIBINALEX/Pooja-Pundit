@@ -97,16 +97,13 @@
     "startBooking": "അർപ്പണം ആരംഭിക്കുക",
     "uploadArpanamVideo": "അർപ്പണത്തിന്റെ വീഡിയോ ചേർക്കുക",
     "videoUploaded": "അർപ്പണത്തിന്റെ വീഡിയോ അപ്‌ലോഡ് ചെയ്തു",
+    "videoFromCamera": "വീഡിയോ റെക്കോർഡ് ചെയ്യുക",
+    "videoFromGallery": "ഗാലറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക",
+    "videoFromFiles": "ഫയലുകളിൽ നിന്ന് തിരഞ്ഞെടുക്കുക",
     "invalidArpanamVideo": "സാധുവായ ഒരു വീഡിയോ ഫയൽ തിരഞ്ഞെടുക്കുക.",
+    "videoPickerUnavailable": "വീഡിയോ റെക്കോർഡ് ചെയ്യുകയോ തിരഞ്ഞെടുക്കുകയോ ലഭ്യമല്ല. ആപ്പ് പുനരാരംഭിച്ച് വീണ്ടും ശ്രമിക്കുക.",
     "videoCompressionFailed": "വീഡിയോ കംപ്രസ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
-    "videoUploadFailed": "വീഡിയോ അപ്‌ലോഡ് പരാജയപ്പെട്ടു: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "വീഡിയോ അപ്‌ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.",
     "freeToAcceptNext": "അടുത്ത ലഭ്യമായ ബുക്കിംഗ് സ്വീകരിക്കാൻ നിങ്ങൾക്ക് സ്വാതന്ത്ര്യമുണ്ട്.",
     "noBookingsAvailable": "ഇപ്പോൾ ബുക്കിംഗുകളൊന്നും ലഭ്യമല്ല.",
     "dobShort": "ജനന തീയതി",

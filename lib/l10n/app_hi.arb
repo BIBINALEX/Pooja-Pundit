@@ -97,16 +97,13 @@
     "startBooking": "अरपनम शुरू करें",
     "uploadArpanamVideo": "अरपनम का वीडियो जोड़ें",
     "videoUploaded": "अरपनम का वीडियो अपलोड हो गया",
+    "videoFromCamera": "वीडियो रिकॉर्ड करें",
+    "videoFromGallery": "गैलरी से चुनें",
+    "videoFromFiles": "फ़ाइलों से चुनें",
     "invalidArpanamVideo": "कृपया मान्य वीडियो फ़ाइल चुनें।",
+    "videoPickerUnavailable": "वीडियो रिकॉर्ड या चुनना उपलब्ध नहीं है। कृपया ऐप को पुनः शुरू करके प्रयास करें।",
     "videoCompressionFailed": "वीडियो को संपीड़ित नहीं किया जा सका।",
-    "videoUploadFailed": "वीडियो अपलोड विफल हुआ: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "वीडियो अपलोड नहीं हो सका। कृपया फिर से प्रयास करें।",
     "freeToAcceptNext": "आप अगली उपलब्ध बुकिंग स्वीकार करने के लिए स्वतंत्र हैं।",
     "noBookingsAvailable": "अभी कोई बुकिंग उपलब्ध नहीं है।",
     "dobShort": "जन्म तिथि",

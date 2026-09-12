@@ -97,16 +97,13 @@
     "startBooking": "அர்ப்பணம் தொடங்கு",
     "uploadArpanamVideo": "அர்ப்பணத்தின் காணொளியைச் சேர்",
     "videoUploaded": "அர்ப்பணத்தின் காணொளி பதிவேற்றப்பட்டது",
+    "videoFromCamera": "காணொளியைப் பதிவு செய்",
+    "videoFromGallery": "கேலரியிலிருந்து தேர்ந்தெடு",
+    "videoFromFiles": "கோப்புகளிலிருந்து தேர்ந்தெடு",
     "invalidArpanamVideo": "சரியான காணொளிக் கோப்பைத் தேர்ந்தெடுக்கவும்.",
+    "videoPickerUnavailable": "காணொளியைப் பதிவு செய்யவோ தேர்ந்தெடுக்கவோ முடியவில்லை. செயலியை மறுதொடக்கம் செய்து மீண்டும் முயற்சிக்கவும்.",
     "videoCompressionFailed": "காணொளியைச் சுருக்க முடியவில்லை.",
-    "videoUploadFailed": "காணொளிப் பதிவேற்றம் தோல்வியடைந்தது: {error}",
-    "@videoUploadFailed": {
-        "placeholders": {
-            "error": {
-                "type": "String"
-            }
-        }
-    },
+    "videoUploadFailed": "காணொளியைப் பதிவேற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
     "freeToAcceptNext": "அடுத்த கிடைக்கும் முன்பதிவை ஏற்க நீங்கள் தயார்.",
     "noBookingsAvailable": "தற்போது முன்பதிவுகள் எதுவும் இல்லை.",
     "dobShort": "பி.தே",
