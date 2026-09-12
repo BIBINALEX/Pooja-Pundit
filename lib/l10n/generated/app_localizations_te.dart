@@ -288,6 +288,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get statusAccepted => 'ఆమోదించింది';
 
   @override
+  String get statusOngoing => 'కొనసాగుతోంది';
+
+  @override
   String get statusRejected => 'తిరస్కరించబడింది';
 
   @override
@@ -313,6 +316,27 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get completeBooking => 'బుకింగ్ పూర్తి చేయండి';
+
+  @override
+  String get startBooking => 'అర్పణం ప్రారంభించండి';
+
+  @override
+  String get uploadArpanamVideo => 'అర్పణం వీడియోను జోడించండి';
+
+  @override
+  String get videoUploaded => 'అర్పణం వీడియో అప్‌లోడ్ అయింది';
+
+  @override
+  String get invalidArpanamVideo =>
+      'దయచేసి చెల్లుబాటు అయ్యే వీడియో ఫైల్‌ను ఎంచుకోండి.';
+
+  @override
+  String get videoCompressionFailed => 'వీడియోను కుదించడం సాధ్యం కాలేదు.';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'వీడియో అప్‌లోడ్ విఫలమైంది: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -344,6 +368,11 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'అభ్యర్థనను తిరస్కరించండి';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$nameను తిరస్కరిస్తే బుకింగ్ మీ జాబితా నుండి తొలగించబడుతుంది. దీన్ని తిరిగి మార్చలేరు.';
+  }
 
   @override
   String get statusOnline => 'ఆన్‌లైన్';
@@ -454,5 +483,10 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'బుకింగ్‌ను పూర్తి చేయడం సాధ్యం కాలేదు: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'బుకింగ్‌ను ప్రారంభించడం సాధ్యం కాలేదు: $error';
   }
 }

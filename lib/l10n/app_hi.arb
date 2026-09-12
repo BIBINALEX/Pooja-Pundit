@@ -85,6 +85,7 @@
     "notesLabel": "टिप्पणियाँ",
     "statusCompleted": "पूर्ण हुआ",
     "statusAccepted": "स्वीकृत",
+    "statusOngoing": "जारी",
     "statusRejected": "अस्वीकृत",
     "statusExpired": "समाप्त",
     "statusNoPanditAvailable": "कोई पंडित उपलब्ध नहीं",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "वर्तमान सक्रिय बुकिंग",
     "dietyPrefix": "देवता: {diety}",
     "completeBooking": "बुकिंग पूर्ण करें",
+    "startBooking": "अरपनम शुरू करें",
+    "uploadArpanamVideo": "अरपनम का वीडियो जोड़ें",
+    "videoUploaded": "अरपनम का वीडियो अपलोड हो गया",
+    "invalidArpanamVideo": "कृपया मान्य वीडियो फ़ाइल चुनें।",
+    "videoCompressionFailed": "वीडियो को संपीड़ित नहीं किया जा सका।",
+    "videoUploadFailed": "वीडियो अपलोड विफल हुआ: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "आप अगली उपलब्ध बुकिंग स्वीकार करने के लिए स्वतंत्र हैं।",
     "noBookingsAvailable": "अभी कोई बुकिंग उपलब्ध नहीं है।",
     "dobShort": "जन्म तिथि",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "पहले वर्तमान कार्य पूरा करें",
     "acceptRequest": "अनुरोध स्वीकार करें",
     "rejectRequestTooltip": "अनुरोध अस्वीकार करें",
+    "rejectBookingWarning": "{name} को अस्वीकार करने पर बुकिंग आपकी सूची से हट जाएगी। इसे वापस नहीं किया जा सकता।",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ऑनलाइन",
     "statusBusy": "व्यस्त",
     "statusOffline": "ऑफ़लाइन",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "बुकिंग अस्वीकार करने में असमर्थ",
     "unableToCompleteBooking": "बुकिंग पूर्ण करने में असमर्थ",
     "completedBooking": "{name} पूर्ण हुई",
-    "couldNotCompleteBooking": "बुकिंग पूर्ण नहीं हो सकी: {error}"
+    "couldNotCompleteBooking": "बुकिंग पूर्ण नहीं हो सकी: {error}",
+    "couldNotStartBooking": "बुकिंग शुरू नहीं हो सकी: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

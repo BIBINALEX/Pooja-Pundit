@@ -27,6 +27,26 @@ class ApiClient {
     return _request('POST', path, data: data, requireAuth: requireAuth);
   }
 
+  Future<Response<dynamic>> postMultipart(
+    String path, {
+    required Object data,
+    required bool requireAuth,
+    ProgressCallback? onSendProgress,
+  }) async {
+    final token = _token ?? await authTokenProvider?.call();
+    if (requireAuth && (token == null || token.trim().isEmpty)) {
+      throw const ApiException('Authentication token is required', 401);
+    }
+    return dio.post(
+      path,
+      data: data,
+      onSendProgress: onSendProgress,
+      options: Options(
+        headers: token == null ? null : {'Authorization': 'Bearer $token'},
+      ),
+    );
+  }
+
   Future<Response<dynamic>> _request(
     String method,
     String path, {

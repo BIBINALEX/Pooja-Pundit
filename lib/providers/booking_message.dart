@@ -21,6 +21,7 @@ enum BookingMessageKey {
   couldNotRejectBooking,
   completedBooking,
   couldNotCompleteBooking,
+  couldNotStartBooking,
 }
 
 class BookingMessage {

@@ -85,6 +85,7 @@
     "notesLabel": "নোট",
     "statusCompleted": "সম্পন্ন হয়েছে",
     "statusAccepted": "গৃহীত",
+    "statusOngoing": "চলমান",
     "statusRejected": "প্রত্যাখ্যাত",
     "statusExpired": "মেয়াদ উত্তীর্ণ",
     "statusNoPanditAvailable": "কোনো পণ্ডিত উপলস্থ নেই",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "বর্তমান সক্রিয় বুকিং",
     "dietyPrefix": "দেবতা: {diety}",
     "completeBooking": "বুকিং সম্পন্ন করুন",
+    "startBooking": "আর্পণম শুরু করুন",
+    "uploadArpanamVideo": "আর্পণমের ভিডিও যোগ করুন",
+    "videoUploaded": "আর্পণমের ভিডিও আপলোড হয়েছে",
+    "invalidArpanamVideo": "একটি বৈধ ভিডিও ফাইল নির্বাচন করুন।",
+    "videoCompressionFailed": "ভিডিওটি সংকুচিত করা যায়নি।",
+    "videoUploadFailed": "ভিডিও আপলোড ব্যর্থ হয়েছে: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "আপনি পরবর্তী উপলব্ধ বুকিং গ্রহণ করতে স্বাধীন।",
     "noBookingsAvailable": "এখন কোনো বুকিং উপলব্ধ নেই।",
     "dobShort": "জন্ম তারিখ",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "প্রথমে বর্তমান কাজ শেষ করুন",
     "acceptRequest": "অনুরোধ গ্রহণ করুন",
     "rejectRequestTooltip": "অনুরোধ প্রত্যাখ্যান করুন",
+    "rejectBookingWarning": "{name}-কে প্রত্যাখ্যান করলে বুকিংটি আপনার তালিকা থেকে সরানো হবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "অনলাইন",
     "statusBusy": "ব্যস্ত",
     "statusOffline": "অফলাইন",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "বুকিং প্রত্যাখ্যান করা যায়নি",
     "unableToCompleteBooking": "বুকিং সম্পন্ন করা যায়নি",
     "completedBooking": "{name} সম্পন্ন হয়েছে",
-    "couldNotCompleteBooking": "বুকিং সম্পন্ন করা যায়নি: {error}"
+    "couldNotCompleteBooking": "বুকিং সম্পন্ন করা যায়নি: {error}",
+    "couldNotStartBooking": "বুকিং শুরু করা যায়নি: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

@@ -288,6 +288,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get statusAccepted => 'സ്വീകരിച്ചു';
 
   @override
+  String get statusOngoing => 'പുരോഗതിയിൽ';
+
+  @override
   String get statusRejected => 'നിരസിച്ചു';
 
   @override
@@ -312,6 +315,26 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get completeBooking => 'ബുക്കിംഗ് പൂർത്തിയാക്കുക';
+
+  @override
+  String get startBooking => 'അർപ്പണം ആരംഭിക്കുക';
+
+  @override
+  String get uploadArpanamVideo => 'അർപ്പണത്തിന്റെ വീഡിയോ ചേർക്കുക';
+
+  @override
+  String get videoUploaded => 'അർപ്പണത്തിന്റെ വീഡിയോ അപ്‌ലോഡ് ചെയ്തു';
+
+  @override
+  String get invalidArpanamVideo => 'സാധുവായ ഒരു വീഡിയോ ഫയൽ തിരഞ്ഞെടുക്കുക.';
+
+  @override
+  String get videoCompressionFailed => 'വീഡിയോ കംപ്രസ് ചെയ്യാൻ കഴിഞ്ഞില്ല.';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'വീഡിയോ അപ്‌ലോഡ് പരാജയപ്പെട്ടു: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -343,6 +366,11 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'അഭ്യർത്ഥന നിരസിക്കുക';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$name നിരസിച്ചാൽ ബുക്കിംഗ് നിങ്ങളുടെ പട്ടികയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടും. ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല.';
+  }
 
   @override
   String get statusOnline => 'ഓൺലൈൻ';
@@ -452,5 +480,10 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'ബുക്കിംഗ് പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'ബുക്കിംഗ് ആരംഭിക്കാൻ കഴിഞ്ഞില്ല: $error';
   }
 }

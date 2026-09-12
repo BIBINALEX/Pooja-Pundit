@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
 
 import '../auth/token_store.dart';
 import 'api_client.dart';
@@ -208,6 +210,14 @@ class BackendApiService {
     );
   }
 
+  Future<PoojaRequest> redispatchBooking(int bookingId) async {
+    final response = await _client.post(
+      Endpoints.bookingRedispatch(bookingId),
+      requireAuth: true,
+    );
+    return bookingFromJson(jsonMap(response.data)['booking']);
+  }
+
   Future<List<Diety>> fetchDieties() async {
     final response = await _client.get(Endpoints.dieties);
     return _listOf<Diety>(jsonMap(response.data)['dieties'], Diety.fromJson);
@@ -279,6 +289,26 @@ class BackendApiService {
 
   Future<PoojaRequest> fetchBooking(int id) async {
     final response = await _client.get(Endpoints.bookingById(id));
+    return bookingFromJson(jsonMap(response.data)['booking']);
+  }
+
+  Future<PoojaRequest> uploadArpanamVideo(
+    int bookingId,
+    File videoFile, {
+    required ProgressCallback onSendProgress,
+  }) async {
+    final formData = FormData.fromMap({
+      'video': await MultipartFile.fromFile(
+        videoFile.path,
+        filename: videoFile.uri.pathSegments.last,
+      ),
+    });
+    final response = await _client.postMultipart(
+      Endpoints.bookingVideo(bookingId),
+      data: formData,
+      requireAuth: true,
+      onSendProgress: onSendProgress,
+    );
     return bookingFromJson(jsonMap(response.data)['booking']);
   }
 

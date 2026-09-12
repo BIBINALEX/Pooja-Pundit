@@ -287,6 +287,9 @@ class AppLocalizationsSa extends AppLocalizations {
   String get statusAccepted => 'स्वीकृतम्';
 
   @override
+  String get statusOngoing => 'प्रचलति';
+
+  @override
   String get statusRejected => 'निराकृतम्';
 
   @override
@@ -311,6 +314,26 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String get completeBooking => 'आरक्षणं पूर्णं कुर्वन्तु';
+
+  @override
+  String get startBooking => 'अर्पणम् आरभन्ताम्';
+
+  @override
+  String get uploadArpanamVideo => 'अर्पणस्य चलचित्रं योजयन्तु';
+
+  @override
+  String get videoUploaded => 'अर्पणस्य चलचित्रम् उपारोपितम्';
+
+  @override
+  String get invalidArpanamVideo => 'कृपया मान्यं चलचित्रसञ्चिकां चिनुत।';
+
+  @override
+  String get videoCompressionFailed => 'चलचित्रं सङ्कुचितुं न शक्यते।';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'चलचित्रस्य उपारोपणं विफलम्: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -342,6 +365,11 @@ class AppLocalizationsSa extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'अनुरोधं निराकुर्वन्तु';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$name निराकृते चेत् आरक्षणं भवतः सूचीतः निष्कासितं भविष्यति। तत् पुनः स्थापयितुं न शक्यते।';
+  }
 
   @override
   String get statusOnline => 'सक्रियः';
@@ -451,5 +479,10 @@ class AppLocalizationsSa extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'आरक्षणं पूर्णं कर्तुं न शक्तम्: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'आरक्षणम् आरब्धुं न शक्तम्: $error';
   }
 }

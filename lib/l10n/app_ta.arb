@@ -85,6 +85,7 @@
     "notesLabel": "குறிப்புகள்",
     "statusCompleted": "முடிந்தது",
     "statusAccepted": "ஏற்கப்பட்டது",
+    "statusOngoing": "நடைபெறுகிறது",
     "statusRejected": "நிராகரிக்கப்பட்டது",
     "statusExpired": "காலாவதியானது",
     "statusNoPanditAvailable": "பண்டிட் கிடைக்கவில்லை",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "தற்போதைய செயலில் முன்பதிவு",
     "dietyPrefix": "தெய்வம்: {diety}",
     "completeBooking": "முன்பதிவை நிறைவு செய்",
+    "startBooking": "அர்ப்பணம் தொடங்கு",
+    "uploadArpanamVideo": "அர்ப்பணத்தின் காணொளியைச் சேர்",
+    "videoUploaded": "அர்ப்பணத்தின் காணொளி பதிவேற்றப்பட்டது",
+    "invalidArpanamVideo": "சரியான காணொளிக் கோப்பைத் தேர்ந்தெடுக்கவும்.",
+    "videoCompressionFailed": "காணொளியைச் சுருக்க முடியவில்லை.",
+    "videoUploadFailed": "காணொளிப் பதிவேற்றம் தோல்வியடைந்தது: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "அடுத்த கிடைக்கும் முன்பதிவை ஏற்க நீங்கள் தயார்.",
     "noBookingsAvailable": "தற்போது முன்பதிவுகள் எதுவும் இல்லை.",
     "dobShort": "பி.தே",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "முதலில் தற்போதைய பணியை முடிக்கவும்",
     "acceptRequest": "கோரிக்கையை ஏற்கவும்",
     "rejectRequestTooltip": "கோரிக்கையை நிராகரி",
+    "rejectBookingWarning": "{name} நிராகரிக்கப்பட்டால், முன்பதிவு உங்கள் பட்டியலிலிருந்து அகற்றப்படும். இதை மீண்டும் மாற்ற முடியாது.",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ஆன்லைன்",
     "statusBusy": "பிஸியாக உள்ளது",
     "statusOffline": "ஆஃப்லைன்",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "முன்பதிவை நிராகரிக்க முடியவில்லை",
     "unableToCompleteBooking": "முன்பதிவை நிறைவு செய்ய முடியவில்லை",
     "completedBooking": "{name} நிறைவு செய்யப்பட்டது",
-    "couldNotCompleteBooking": "முன்பதிவை நிறைவு செய்ய முடியவில்லை: {error}"
+    "couldNotCompleteBooking": "முன்பதிவை நிறைவு செய்ய முடியவில்லை: {error}",
+    "couldNotStartBooking": "முன்பதிவை தொடங்க முடியவில்லை: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

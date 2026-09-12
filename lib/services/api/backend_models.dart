@@ -4,6 +4,7 @@ enum BookingStatus {
   pending,
   offered,
   accepted,
+  ongoing,
   rejected,
   expired,
   noPanditAvailable;
@@ -17,6 +18,8 @@ enum BookingStatus {
         return BookingStatus.offered;
       case 'ACCEPTED':
         return BookingStatus.accepted;
+      case 'ONGOING':
+        return BookingStatus.ongoing;
       case 'REJECTED':
         return BookingStatus.rejected;
       case 'EXPIRED':
@@ -37,6 +40,8 @@ enum BookingStatus {
         return 'OFFERED';
       case BookingStatus.accepted:
         return 'ACCEPTED';
+      case BookingStatus.ongoing:
+        return 'ONGOING';
       case BookingStatus.rejected:
         return 'REJECTED';
       case BookingStatus.expired:

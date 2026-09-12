@@ -85,6 +85,7 @@
     "notesLabel": "കുറിപ്പുകൾ",
     "statusCompleted": "പൂർത്തിയായി",
     "statusAccepted": "സ്വീകരിച്ചു",
+    "statusOngoing": "പുരോഗതിയിൽ",
     "statusRejected": "നിരസിച്ചു",
     "statusExpired": "കാലഹരണപ്പെട്ടു",
     "statusNoPanditAvailable": "പണ്ഡിറ്റ് ലഭ്യമല്ല",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "നിലവിലെ സജീവ ബുക്കിംഗ്",
     "dietyPrefix": "ദേവത: {diety}",
     "completeBooking": "ബുക്കിംഗ് പൂർത്തിയാക്കുക",
+    "startBooking": "അർപ്പണം ആരംഭിക്കുക",
+    "uploadArpanamVideo": "അർപ്പണത്തിന്റെ വീഡിയോ ചേർക്കുക",
+    "videoUploaded": "അർപ്പണത്തിന്റെ വീഡിയോ അപ്‌ലോഡ് ചെയ്തു",
+    "invalidArpanamVideo": "സാധുവായ ഒരു വീഡിയോ ഫയൽ തിരഞ്ഞെടുക്കുക.",
+    "videoCompressionFailed": "വീഡിയോ കംപ്രസ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+    "videoUploadFailed": "വീഡിയോ അപ്‌ലോഡ് പരാജയപ്പെട്ടു: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "അടുത്ത ലഭ്യമായ ബുക്കിംഗ് സ്വീകരിക്കാൻ നിങ്ങൾക്ക് സ്വാതന്ത്ര്യമുണ്ട്.",
     "noBookingsAvailable": "ഇപ്പോൾ ബുക്കിംഗുകളൊന്നും ലഭ്യമല്ല.",
     "dobShort": "ജനന തീയതി",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "ആദ്യം നിലവിലെ ജോലി പൂർത്തിയാക്കുക",
     "acceptRequest": "അഭ്യർത്ഥന സ്വീകരിക്കുക",
     "rejectRequestTooltip": "അഭ്യർത്ഥന നിരസിക്കുക",
+    "rejectBookingWarning": "{name} നിരസിച്ചാൽ ബുക്കിംഗ് നിങ്ങളുടെ പട്ടികയിൽ നിന്ന് നീക്കം ചെയ്യപ്പെടും. ഇത് പഴയപടിയാക്കാൻ കഴിയില്ല.",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ഓൺലൈൻ",
     "statusBusy": "തിരക്കിലാണ്",
     "statusOffline": "ഓഫ്‌ലൈൻ",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "ബുക്കിംഗ് നിരസിക്കാൻ കഴിഞ്ഞില്ല",
     "unableToCompleteBooking": "ബുക്കിംഗ് പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല",
     "completedBooking": "{name} പൂർത്തിയാക്കി",
-    "couldNotCompleteBooking": "ബുക്കിംഗ് പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല: {error}"
+    "couldNotCompleteBooking": "ബുക്കിംഗ് പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല: {error}",
+    "couldNotStartBooking": "ബുക്കിംഗ് ആരംഭിക്കാൻ കഴിഞ്ഞില്ല: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

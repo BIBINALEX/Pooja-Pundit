@@ -624,6 +624,12 @@ abstract class AppLocalizations {
   /// **'Accepted'**
   String get statusAccepted;
 
+  /// No description provided for @statusOngoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing'**
+  String get statusOngoing;
+
   /// No description provided for @statusRejected.
   ///
   /// In en, this message translates to:
@@ -671,6 +677,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Complete booking'**
   String get completeBooking;
+
+  /// No description provided for @startBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Arpanam'**
+  String get startBooking;
+
+  /// No description provided for @uploadArpanamVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Arpanam video'**
+  String get uploadArpanamVideo;
+
+  /// No description provided for @videoUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Arpanam video uploaded'**
+  String get videoUploaded;
+
+  /// No description provided for @invalidArpanamVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a valid video file.'**
+  String get invalidArpanamVideo;
+
+  /// No description provided for @videoCompressionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The video could not be compressed.'**
+  String get videoCompressionFailed;
+
+  /// No description provided for @videoUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The video upload failed: {error}'**
+  String videoUploadFailed(String error);
 
   /// No description provided for @freeToAcceptNext.
   ///
@@ -731,6 +773,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reject request'**
   String get rejectRequestTooltip;
+
+  /// No description provided for @rejectBookingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejecting {name} will remove this booking from your list. This cannot be undone.'**
+  String rejectBookingWarning(String name);
 
   /// No description provided for @statusOnline.
   ///
@@ -899,6 +947,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not complete booking: {error}'**
   String couldNotCompleteBooking(String error);
+
+  /// No description provided for @couldNotStartBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start booking: {error}'**
+  String couldNotStartBooking(String error);
 }
 
 class _AppLocalizationsDelegate

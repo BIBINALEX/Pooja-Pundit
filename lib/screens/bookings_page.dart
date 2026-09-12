@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pooja_pundit/core/widgets/app_confirmation_dialog.dart';
 import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import 'package:pooja_pundit/providers/booking_message_localizer.dart';
+import 'package:pooja_pundit/providers/arpanam_video_provider.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
 import '../providers/booking_provider.dart';
 import '../widgets/booking_card.dart';
@@ -18,6 +20,23 @@ class BookingsPage extends ConsumerStatefulWidget {
 
 class _BookingsPageState extends ConsumerState<BookingsPage> {
   bool _connected = false;
+
+  Future<void> _confirmReject(PoojaRequest request) async {
+    final l10n = AppLocalizations.of(context);
+    final shouldReject = await showDialog<bool>(
+      context: context,
+      builder: (context) => AppConfirmationDialog(
+        title: l10n.rejectRequestTooltip,
+        message: l10n.rejectBookingWarning(request.service),
+        cancelLabel: l10n.cancel,
+        confirmLabel: l10n.rejectRequestTooltip,
+        isDestructive: true,
+      ),
+    );
+    if (shouldReject == true && mounted) {
+      await ref.read(bookingProvider.notifier).rejectRequest(request);
+    }
+  }
 
   @override
   void initState() {
@@ -38,6 +57,11 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
     final controller = ref.read(bookingProvider.notifier);
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context);
+    final activeBooking = state.active;
+    final isOngoing = activeBooking?.status.toUpperCase() == 'ONGOING';
+    final videoState = activeBooking?.id == null
+        ? const ArpanamVideoState()
+        : ref.watch(arpanamVideoProvider(activeBooking!.id!));
 
     ref.listen<BookingState>(bookingProvider, (previous, next) {
       if (next.alertMessage != null &&
@@ -100,11 +124,64 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                 Text(
                   l10n.dietyPrefix(localizedDiety(state.active!.diety, locale)),
                 ),
+                if (isOngoing) ...[
+                  const Gap(12),
+                  OutlinedButton.icon(
+                    onPressed: videoState.isUploading || videoState.isUploaded
+                        ? null
+                        : ref
+                              .read(
+                                arpanamVideoProvider(
+                                  activeBooking!.id!,
+                                ).notifier,
+                              )
+                              .pickAndUpload,
+                    icon: Icon(
+                      videoState.isUploaded
+                          ? Icons.check_circle_outline
+                          : Icons.video_library_outlined,
+                    ),
+                    label: Text(
+                      videoState.isUploaded
+                          ? l10n.videoUploaded
+                          : l10n.uploadArpanamVideo,
+                    ),
+                  ),
+                  if (videoState.isUploading) ...[
+                    const Gap(8),
+                    LinearProgressIndicator(value: videoState.progress),
+                    const Gap(4),
+                    Text(
+                      '${(videoState.progress * 100).round()}%',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                  if (videoState.errorType != null)
+                    Text(
+                      switch (videoState.errorType!) {
+                        ArpanamVideoError.invalidVideo =>
+                          l10n.invalidArpanamVideo,
+                        ArpanamVideoError.compressionFailed =>
+                          l10n.videoCompressionFailed,
+                        ArpanamVideoError.uploadFailed =>
+                          l10n.videoUploadFailed(videoState.errorDetails ?? ''),
+                      },
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                ],
                 const Gap(12),
                 FilledButton.icon(
-                  onPressed: controller.completeActiveBooking,
-                  icon: const Icon(Icons.done_all),
-                  label: Text(l10n.completeBooking),
+                  onPressed: isOngoing
+                      ? videoState.isUploaded
+                            ? controller.completeActiveBooking
+                            : null
+                      : controller.startActiveBooking,
+                  icon: Icon(isOngoing ? Icons.done_all : Icons.play_arrow),
+                  label: Text(
+                    isOngoing ? l10n.completeBooking : l10n.startBooking,
+                  ),
                 ),
               ],
             ),
@@ -132,8 +209,9 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
           isBusy: state.isBusy,
           pendingBookingId: state.pendingBookingId,
           pendingAction: state.pendingAction,
+          newBookingIds: state.newBookingIds,
           onAccept: controller.acceptRequest,
-          onReject: controller.rejectRequest,
+          onReject: _confirmReject,
         ),
       ],
     );
@@ -146,6 +224,7 @@ class _AnimatedBookingList extends StatefulWidget {
     required this.isBusy,
     required this.pendingBookingId,
     required this.pendingAction,
+    required this.newBookingIds,
     required this.onAccept,
     required this.onReject,
   });
@@ -154,6 +233,7 @@ class _AnimatedBookingList extends StatefulWidget {
   final bool isBusy;
   final int? pendingBookingId;
   final BookingAction? pendingAction;
+  final Set<int> newBookingIds;
   final ValueChanged<PoojaRequest> onAccept;
   final ValueChanged<PoojaRequest> onReject;
 
@@ -181,7 +261,7 @@ class _AnimatedBookingListState extends State<_AnimatedBookingList> {
         _listKey.currentState?.removeItem(
           index,
           (context, animation) => _buildItem(removed, animation),
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 420),
         );
       }
     }
@@ -194,7 +274,7 @@ class _AnimatedBookingListState extends State<_AnimatedBookingList> {
         _bookings.insert(index, booking);
         _listKey.currentState?.insertItem(
           index,
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 420),
         );
       } else {
         _bookings[currentIndex] = booking;
@@ -222,21 +302,40 @@ class _AnimatedBookingListState extends State<_AnimatedBookingList> {
   }
 
   Widget _buildItem(PoojaRequest request, Animation<double> animation) {
+    final easedAnimation = animation.drive(
+      CurveTween(curve: Curves.easeInOutCubic),
+    );
+
     return SizeTransition(
-      sizeFactor: animation,
+      sizeFactor: easedAnimation,
+      axisAlignment: -1,
       child: FadeTransition(
-        opacity: animation,
-        child: BookingCard(
-          request: request,
-          isBusy: widget.isBusy,
-          isAcceptPending:
-              widget.pendingBookingId == request.id &&
-              widget.pendingAction == BookingAction.accepting,
-          isRejectPending:
-              widget.pendingBookingId == request.id &&
-              widget.pendingAction == BookingAction.rejecting,
-          onAccept: () => widget.onAccept(request),
-          onReject: () => widget.onReject(request),
+        opacity: easedAnimation,
+        child: ClipRect(
+          child: SlideTransition(
+            position: easedAnimation.drive(
+              Tween<Offset>(begin: const Offset(-0.16, 0), end: Offset.zero),
+            ),
+            child: ScaleTransition(
+              scale: easedAnimation.drive(Tween<double>(begin: 0.94, end: 1)),
+              alignment: Alignment.centerLeft,
+              child: BookingCard(
+                request: request,
+                isBusy: widget.isBusy,
+                isAcceptPending:
+                    widget.pendingBookingId == request.id &&
+                    widget.pendingAction == BookingAction.accepting,
+                isRejectPending:
+                    widget.pendingBookingId == request.id &&
+                    widget.pendingAction == BookingAction.rejecting,
+                isNew:
+                    request.id != null &&
+                    widget.newBookingIds.contains(request.id),
+                onAccept: () => widget.onAccept(request),
+                onReject: () => widget.onReject(request),
+              ),
+            ),
+          ),
         ),
       ),
     );

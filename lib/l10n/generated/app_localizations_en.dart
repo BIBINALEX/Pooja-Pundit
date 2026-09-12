@@ -285,6 +285,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statusAccepted => 'Accepted';
 
   @override
+  String get statusOngoing => 'Ongoing';
+
+  @override
   String get statusRejected => 'Rejected';
 
   @override
@@ -309,6 +312,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get completeBooking => 'Complete booking';
+
+  @override
+  String get startBooking => 'Start Arpanam';
+
+  @override
+  String get uploadArpanamVideo => 'Add Arpanam video';
+
+  @override
+  String get videoUploaded => 'Arpanam video uploaded';
+
+  @override
+  String get invalidArpanamVideo => 'Please select a valid video file.';
+
+  @override
+  String get videoCompressionFailed => 'The video could not be compressed.';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'The video upload failed: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -340,6 +363,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'Reject request';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return 'Rejecting $name will remove this booking from your list. This cannot be undone.';
+  }
 
   @override
   String get statusOnline => 'Online';
@@ -449,5 +477,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'Could not complete booking: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'Could not start booking: $error';
   }
 }

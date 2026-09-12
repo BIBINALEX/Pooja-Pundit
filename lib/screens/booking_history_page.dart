@@ -223,6 +223,8 @@ class _BookingHistoryCard extends StatelessWidget {
         return l10n.statusCompleted;
       case 'ACCEPTED':
         return l10n.statusAccepted;
+      case 'ONGOING':
+        return l10n.statusOngoing;
       case 'REJECTED':
         return l10n.statusRejected;
       case 'EXPIRED':

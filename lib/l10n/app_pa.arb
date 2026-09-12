@@ -85,6 +85,7 @@
     "notesLabel": "ਨੋਟਸ",
     "statusCompleted": "ਪੂਰਾ ਹੋਇਆ",
     "statusAccepted": "ਸਵੀਕਾਰ ਕੀਤਾ",
+    "statusOngoing": "ਜਾਰੀ ਹੈ",
     "statusRejected": "ਰੱਦ ਕੀਤਾ",
     "statusExpired": "ਮਿਆਦ ਪੁੱਗੀ",
     "statusNoPanditAvailable": "ਕੋਈ ਪੰਡਿਤ ਉਪਲਬਧ ਨਹੀਂ",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "ਮੌਜੂਦਾ ਸਰਗਰਮ ਬੁਕਿੰਗ",
     "dietyPrefix": "ਦੇਵਤਾ: {diety}",
     "completeBooking": "ਬੁਕਿੰਗ ਪੂਰੀ ਕਰੋ",
+    "startBooking": "ਅਰਪਣਮ ਸ਼ੁਰੂ ਕਰੋ",
+    "uploadArpanamVideo": "ਅਰਪਣਮ ਦੀ ਵੀਡੀਓ ਸ਼ਾਮਲ ਕਰੋ",
+    "videoUploaded": "ਅਰਪਣਮ ਦੀ ਵੀਡੀਓ ਅੱਪਲੋਡ ਹੋ ਗਈ",
+    "invalidArpanamVideo": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੈਧ ਵੀਡੀਓ ਫਾਈਲ ਚੁਣੋ।",
+    "videoCompressionFailed": "ਵੀਡੀਓ ਨੂੰ ਸੰਕੁਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।",
+    "videoUploadFailed": "ਵੀਡੀਓ ਅੱਪਲੋਡ ਅਸਫਲ ਹੋਈ: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "ਤੁਸੀਂ ਅਗਲੀ ਉਪਲਬਧ ਬੁਕਿੰਗ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਸੁਤੰਤਰ ਹੋ।",
     "noBookingsAvailable": "ਹੁਣੇ ਕੋਈ ਬੁਕਿੰਗ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
     "dobShort": "ਜਨਮ ਮਿਤੀ",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "ਪਹਿਲਾਂ ਮੌਜੂਦਾ ਕੰਮ ਪੂਰਾ ਕਰੋ",
     "acceptRequest": "ਬੇਨਤੀ ਸਵੀਕਾਰ ਕਰੋ",
     "rejectRequestTooltip": "ਬੇਨਤੀ ਰੱਦ ਕਰੋ",
+    "rejectBookingWarning": "{name} ਨੂੰ ਰੱਦ ਕਰਨ ਨਾਲ ਬੁਕਿੰਗ ਤੁਹਾਡੀ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾ ਦਿੱਤੀ ਜਾਵੇਗੀ। ਇਸਨੂੰ ਵਾਪਸ ਨਹੀਂ ਲਿਆਂਦਾ ਜਾ ਸਕਦਾ।",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ਆਨਲਾਈਨ",
     "statusBusy": "ਰੁੱਝਿਆ ਹੋਇਆ",
     "statusOffline": "ਆਫਲਾਈਨ",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "ਬੁਕਿੰਗ ਰੱਦ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ",
     "unableToCompleteBooking": "ਬੁਕਿੰਗ ਪੂਰੀ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ",
     "completedBooking": "{name} ਪੂਰੀ ਹੋਈ",
-    "couldNotCompleteBooking": "ਬੁਕਿੰਗ ਪੂਰੀ ਨਹੀਂ ਹੋ ਸਕੀ: {error}"
+    "couldNotCompleteBooking": "ਬੁਕਿੰਗ ਪੂਰੀ ਨਹੀਂ ਹੋ ਸਕੀ: {error}",
+    "couldNotStartBooking": "ਬੁਕਿੰਗ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋ ਸਕੀ: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

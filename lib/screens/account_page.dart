@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
+import 'package:pooja_pundit/core/widgets/app_confirmation_dialog.dart';
 import 'package:pooja_pundit/l10n/generated/app_localizations.dart';
 import 'package:pooja_pundit/services/api/backend_models.dart';
 import 'language_selection_page.dart';
@@ -55,19 +56,11 @@ class _AccountPageState extends ConsumerState<AccountPage> {
     final l10n = AppLocalizations.of(context);
     final shouldLogout = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.logOutQuestion),
-        content: Text(l10n.signInAgainMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l10n.logOut),
-          ),
-        ],
+      builder: (context) => AppConfirmationDialog(
+        title: l10n.logOutQuestion,
+        message: l10n.signInAgainMessage,
+        cancelLabel: l10n.cancel,
+        confirmLabel: l10n.logOut,
       ),
     );
     if (shouldLogout != true || !mounted) return;

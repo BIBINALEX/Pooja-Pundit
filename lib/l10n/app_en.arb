@@ -130,6 +130,7 @@
     "notesLabel": "Notes",
     "statusCompleted": "Completed",
     "statusAccepted": "Accepted",
+    "statusOngoing": "Ongoing",
     "statusRejected": "Rejected",
     "statusExpired": "Expired",
     "statusNoPanditAvailable": "No Pandit Available",
@@ -145,6 +146,19 @@
         }
     },
     "completeBooking": "Complete booking",
+    "startBooking": "Start Arpanam",
+    "uploadArpanamVideo": "Add Arpanam video",
+    "videoUploaded": "Arpanam video uploaded",
+    "invalidArpanamVideo": "Please select a valid video file.",
+    "videoCompressionFailed": "The video could not be compressed.",
+    "videoUploadFailed": "The video upload failed: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "You are free to accept the next available booking.",
     "noBookingsAvailable": "No bookings available right now.",
     "dobShort": "DOB",
@@ -155,6 +169,14 @@
     "finishCurrentTaskFirst": "Finish current task first",
     "acceptRequest": "Accept request",
     "rejectRequestTooltip": "Reject request",
+    "rejectBookingWarning": "Rejecting {name} will remove this booking from your list. This cannot be undone.",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "Online",
     "statusBusy": "Busy",
     "statusOffline": "Offline",
@@ -267,7 +289,15 @@
         }
     },
     "couldNotCompleteBooking": "Could not complete booking: {error}",
+    "couldNotStartBooking": "Could not start booking: {error}",
     "@couldNotCompleteBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "@couldNotStartBooking": {
         "placeholders": {
             "error": {
                 "type": "String"

@@ -22,6 +22,8 @@ class Endpoints {
   static const panditBookings = '/bookings/pandit';
   static const newBooking = '/bookings/new';
   static String bookingById(int id) => '/bookings/$id';
+  static String bookingVideo(int id) => '/bookings/$id/video';
+  static String bookingRedispatch(int id) => '/bookings/$id/redispatch';
   static String serviceById(int id) => '/services/$id';
   static const pandits = '/pandits/list';
   static String panditById(int id) => '/pandits/$id';

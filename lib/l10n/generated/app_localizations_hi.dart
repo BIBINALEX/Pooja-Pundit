@@ -284,6 +284,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get statusAccepted => 'स्वीकृत';
 
   @override
+  String get statusOngoing => 'जारी';
+
+  @override
   String get statusRejected => 'अस्वीकृत';
 
   @override
@@ -308,6 +311,26 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get completeBooking => 'बुकिंग पूर्ण करें';
+
+  @override
+  String get startBooking => 'अरपनम शुरू करें';
+
+  @override
+  String get uploadArpanamVideo => 'अरपनम का वीडियो जोड़ें';
+
+  @override
+  String get videoUploaded => 'अरपनम का वीडियो अपलोड हो गया';
+
+  @override
+  String get invalidArpanamVideo => 'कृपया मान्य वीडियो फ़ाइल चुनें।';
+
+  @override
+  String get videoCompressionFailed => 'वीडियो को संपीड़ित नहीं किया जा सका।';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'वीडियो अपलोड विफल हुआ: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -339,6 +362,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'अनुरोध अस्वीकार करें';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$name को अस्वीकार करने पर बुकिंग आपकी सूची से हट जाएगी। इसे वापस नहीं किया जा सकता।';
+  }
 
   @override
   String get statusOnline => 'ऑनलाइन';
@@ -448,5 +476,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'बुकिंग पूर्ण नहीं हो सकी: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'बुकिंग शुरू नहीं हो सकी: $error';
   }
 }

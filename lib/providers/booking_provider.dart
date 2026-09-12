@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pooja_pundit/core/di/providers.dart' as di;
 import 'package:pooja_pundit/providers/booking_message.dart';
@@ -11,12 +12,13 @@ import 'package:pooja_pundit/services/api/backend_api_service.dart';
 
 export 'package:pooja_pundit/providers/booking_message.dart';
 
-enum BookingAction { accepting, rejecting, completing }
+enum BookingAction { accepting, rejecting, starting, completing }
 
 class BookingState {
   BookingState({
     required this.available,
     required this.past,
+    this.newBookingIds = const <int>{},
     this.active,
     this.pendingBookingId,
     this.pendingAction,
@@ -33,6 +35,7 @@ class BookingState {
 
   final List<PoojaRequest> available;
   final List<PoojaRequest> past;
+  final Set<int> newBookingIds;
   final PoojaRequest? active;
   final int? pendingBookingId;
   final BookingAction? pendingAction;
@@ -49,6 +52,7 @@ class BookingState {
   BookingState copyWith({
     List<PoojaRequest>? available,
     List<PoojaRequest>? past,
+    Set<int>? newBookingIds,
     PoojaRequest? active,
     bool clearActive = false,
     int? pendingBookingId,
@@ -65,6 +69,7 @@ class BookingState {
     return BookingState(
       available: available ?? this.available,
       past: past ?? this.past,
+      newBookingIds: newBookingIds ?? this.newBookingIds,
       active: clearActive ? null : active ?? this.active,
       pendingBookingId: clearPendingBooking
           ? null
@@ -112,7 +117,14 @@ class BookingController extends Notifier<BookingState>
     _socketService.onBookingReceived.listen((request) {
       final exists = state.available.any((item) => item.id == request.id);
       if (!exists) {
-        state = state.copyWith(available: [...state.available, request]);
+        final bookingId = request.id;
+        state = state.copyWith(
+          available: [...state.available, request],
+          newBookingIds: bookingId == null
+              ? state.newBookingIds
+              : {...state.newBookingIds, bookingId},
+        );
+        SystemSound.play(SystemSoundType.alert);
       }
     });
 
@@ -122,6 +134,9 @@ class BookingController extends Notifier<BookingState>
         available: state.available
             .where((item) => item.id != offer.bookingId)
             .toList(),
+        newBookingIds: state.newBookingIds
+            .where((id) => id != offer.bookingId)
+            .toSet(),
         connectionMessage: message,
         alertMessage: message,
       );
@@ -131,6 +146,8 @@ class BookingController extends Notifier<BookingState>
       state = state.copyWith(
         isConnected: connected,
         status: connected ? state.status : PanditStatus.offline,
+        available: connected ? null : const [],
+        newBookingIds: connected ? null : const <int>{},
       );
       if (connected && _wantsToBeOnline && !_isConnecting) {
         unawaited(_rejoinAfterReconnect());
@@ -141,6 +158,8 @@ class BookingController extends Notifier<BookingState>
       state = state.copyWith(
         status: status,
         connectionMessage: _statusMessage(status),
+        available: status == PanditStatus.offline ? const [] : null,
+        newBookingIds: status == PanditStatus.offline ? const <int>{} : null,
       );
     });
 
@@ -173,6 +192,9 @@ class BookingController extends Notifier<BookingState>
         token: effectiveToken,
       );
       final joined = await _socketService.joinPandit();
+      if (joined != null) {
+        _addOfferedBookings(joined.offeredBookings);
+      }
       state = state.copyWith(
         active: joined != null && joined.activeBookings.isNotEmpty
             ? joined.activeBookings.first
@@ -208,9 +230,12 @@ class BookingController extends Notifier<BookingState>
           params: {'error': _socketService.lastActionError ?? ''},
         ),
         isConnected: false,
+        available: const [],
+        newBookingIds: const <int>{},
         status: PanditStatus.offline,
       );
     } else if (joined != null) {
+      _addOfferedBookings(joined.offeredBookings);
       state = state.copyWith(
         active: joined.activeBookings.isNotEmpty
             ? joined.activeBookings.first
@@ -218,6 +243,52 @@ class BookingController extends Notifier<BookingState>
         connectionMessage: _statusMessage(joined.status),
         status: joined.status,
       );
+    }
+  }
+
+  // Future<void> _restoreJoinedBookings(List<PoojaRequest> bookings) async {
+  //   if (bookings.isEmpty) return;
+
+  //   final redispatched = <PoojaRequest>[];
+  //   final restoredBookingIds = <int>{};
+  //   for (final booking in bookings) {
+  //     final bookingId = booking.id;
+  //     if (bookingId == null ||
+  //         !restoredBookingIds.add(bookingId) ||
+  //         state.available.any((item) => item.id == bookingId)) {
+  //       continue;
+  //     }
+  //     try {
+  //       redispatched.add(await _apiService.redispatchBooking(bookingId));
+  //     } catch (_) {}
+  //   }
+  //   if (redispatched.isNotEmpty) {
+  //     state = state.copyWith(
+  //       available: _mergeAvailableBookings(state.available, redispatched),
+  //     );
+  //   }
+  // }
+
+  void _addOfferedBookings(List<PoojaRequest> bookings) {
+    if (bookings.isEmpty) return;
+
+    final existingIds = state.available
+        .map((booking) => booking.id)
+        .whereType<int>()
+        .toSet();
+    final added = <PoojaRequest>[];
+    final addedIds = <int>{};
+    for (final booking in bookings) {
+      final bookingId = booking.id;
+      if (bookingId == null ||
+          existingIds.contains(bookingId) ||
+          !addedIds.add(bookingId)) {
+        continue;
+      }
+      added.add(booking);
+    }
+    if (added.isNotEmpty) {
+      state = state.copyWith(available: [...state.available, ...added]);
     }
   }
 
@@ -328,6 +399,9 @@ class BookingController extends Notifier<BookingState>
         available: state.available
             .where((item) => item.id != request.id)
             .toList(),
+        newBookingIds: state.newBookingIds
+            .where((id) => id != request.id)
+            .toSet(),
         connectionMessage: BookingMessage(
           BookingMessageKey.acceptedBooking,
           params: {'name': accepted.fullname},
@@ -398,6 +472,9 @@ class BookingController extends Notifier<BookingState>
         available: state.available
             .where((item) => item.id != request.id)
             .toList(),
+        newBookingIds: state.newBookingIds
+            .where((id) => id != request.id)
+            .toSet(),
         connectionMessage: BookingMessage(
           BookingMessageKey.rejectedBooking,
           params: {'name': request.fullname},
@@ -456,6 +533,36 @@ class BookingController extends Notifier<BookingState>
     }
   }
 
+  Future<void> startActiveBooking() async {
+    if (state.active == null) return;
+
+    final active = state.active!;
+    if (active.id == null || state.pendingBookingId != null) return;
+
+    state = state.copyWith(
+      pendingBookingId: active.id,
+      pendingAction: BookingAction.starting,
+    );
+    try {
+      final ongoing = await _socketService.startBooking(active.id!);
+      if (ongoing == null) {
+        throw StateError(
+          _socketService.lastActionError ?? 'Unable to start booking',
+        );
+      }
+      state = state.copyWith(active: ongoing);
+    } catch (error) {
+      state = state.copyWith(
+        connectionMessage: BookingMessage(
+          BookingMessageKey.couldNotStartBooking,
+          params: {'error': '$error'},
+        ),
+      );
+    } finally {
+      state = state.copyWith(clearPendingBooking: true);
+    }
+  }
+
   Future<void> disconnect() async {
     _wantsToBeOnline = false;
     await _socketService.leavePandit();
@@ -463,6 +570,8 @@ class BookingController extends Notifier<BookingState>
     state = state.copyWith(
       isConnected: _socketService.isConnected,
       status: PanditStatus.offline,
+      available: const [],
+      newBookingIds: const <int>{},
     );
   }
 }

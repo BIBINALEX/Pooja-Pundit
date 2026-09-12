@@ -7,10 +7,15 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 enum PanditStatus { offline, online, busy }
 
 class PanditJoinResult {
-  const PanditJoinResult({required this.status, required this.activeBookings});
+  const PanditJoinResult({
+    required this.status,
+    required this.activeBookings,
+    required this.offeredBookings,
+  });
 
   final PanditStatus status;
   final List<PoojaRequest> activeBookings;
+  final List<PoojaRequest> offeredBookings;
 }
 
 class BookingOfferClosed {
@@ -142,11 +147,23 @@ class SocketService {
     final panditData = pandit is Map
         ? Map<String, dynamic>.from(pandit)
         : <String, dynamic>{};
+    print('Pandit data: $panditData');
+    print('Result data: $result');
     final activeBookings = result['activeBookings'];
+    final offeredBookings = result['offeredBookings'];
     return PanditJoinResult(
       status: _parseStatus(panditData),
       activeBookings: activeBookings is List
           ? activeBookings
+                .whereType<Map>()
+                .map(
+                  (booking) =>
+                      PoojaRequest.fromJson(Map<String, dynamic>.from(booking)),
+                )
+                .toList()
+          : const [],
+      offeredBookings: offeredBookings is List
+          ? offeredBookings
                 .whereType<Map>()
                 .map(
                   (booking) =>
@@ -229,6 +246,25 @@ class SocketService {
     _lastActionError = result is Map
         ? result['error']?.toString()
         : 'Unable to complete booking';
+
+    final booking = result is Map ? result['booking'] : null;
+    if (result is Map && result['ok'] == true && booking is Map) {
+      _lastActionError = null;
+      return PoojaRequest.fromJson(Map<String, dynamic>.from(booking));
+    }
+    return null;
+  }
+
+  Future<PoojaRequest?> startBooking(int bookingId) async {
+    if (!_isConnected || _socket == null) return null;
+
+    final result = await _emitWithAck(
+      'booking:ongoing',
+      data: {'bookingId': bookingId},
+    );
+    _lastActionError = result is Map
+        ? result['error']?.toString()
+        : 'Unable to start booking';
 
     final booking = result is Map ? result['booking'] : null;
     if (result is Map && result['ok'] == true && booking is Map) {

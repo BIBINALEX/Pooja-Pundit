@@ -85,6 +85,7 @@
     "notesLabel": "નોંધો",
     "statusCompleted": "પૂર્ણ થયું",
     "statusAccepted": "સ્વીકારાયું",
+    "statusOngoing": "ચાલુ",
     "statusRejected": "નકારાયું",
     "statusExpired": "મ્યાદ પૂર્ણ થઈ",
     "statusNoPanditAvailable": "કોઈ પંડિતી ઉપલબ્ધ નથી",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "વર્તમાન સક્રિય બુકિંગ",
     "dietyPrefix": "દેવતા: {diety}",
     "completeBooking": "બુકિંગ પૂર્ણ કરો",
+    "startBooking": "અર્પણમ શરૂ કરો",
+    "uploadArpanamVideo": "અર્પણમનો વિડિયો ઉમેરો",
+    "videoUploaded": "અર્પણમનો વિડિયો અપલોડ થયો",
+    "invalidArpanamVideo": "કૃપા કરીને માન્ય વિડિયો ફાઇલ પસંદ કરો.",
+    "videoCompressionFailed": "વિડિયો સંકુચિત થઈ શક્યો નથી.",
+    "videoUploadFailed": "વિડિયો અપલોડ નિષ્ફળ થયું: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "તમે આગલી ઉપલબ્ધ બુકિંગ સ્વીકારવા માટે મુક્ત છો.",
     "noBookingsAvailable": "હાલમાં કોઈ બુકિંગ ઉપલબ્ધ નથી.",
     "dobShort": "જન્મ તારીખ",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "પહેલા વર્તમાન કાર્ય પૂર્ણ કરો",
     "acceptRequest": "વિનંતી સ્વીકારો",
     "rejectRequestTooltip": "વિનંતી નકારો",
+    "rejectBookingWarning": "{name}ને નકારવાથી બુકિંગ તમારી યાદીમાંથી દૂર થઈ જશે. આ પૂર્વવત્ કરી શકાશે નહીં.",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ઓનલાઈન",
     "statusBusy": "વ્યસ્ત",
     "statusOffline": "ઓફલાઈન",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "બુકિંગ નકારવામાં અસમર્થ",
     "unableToCompleteBooking": "બુકિંગ પૂર્ણ કરવામાં અસમર્થ",
     "completedBooking": "{name} પૂર્ણ થયું",
-    "couldNotCompleteBooking": "બુકિંગ પૂર્ણ કરી શકાયું નથી: {error}"
+    "couldNotCompleteBooking": "બુકિંગ પૂર્ણ કરી શકાયું નથી: {error}",
+    "couldNotStartBooking": "બુકિંગ શરૂ કરી શકાયું નથી: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

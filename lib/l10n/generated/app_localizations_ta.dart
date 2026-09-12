@@ -286,6 +286,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get statusAccepted => 'ஏற்கப்பட்டது';
 
   @override
+  String get statusOngoing => 'நடைபெறுகிறது';
+
+  @override
   String get statusRejected => 'நிராகரிக்கப்பட்டது';
 
   @override
@@ -311,6 +314,27 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get completeBooking => 'முன்பதிவை நிறைவு செய்';
+
+  @override
+  String get startBooking => 'அர்ப்பணம் தொடங்கு';
+
+  @override
+  String get uploadArpanamVideo => 'அர்ப்பணத்தின் காணொளியைச் சேர்';
+
+  @override
+  String get videoUploaded => 'அர்ப்பணத்தின் காணொளி பதிவேற்றப்பட்டது';
+
+  @override
+  String get invalidArpanamVideo =>
+      'சரியான காணொளிக் கோப்பைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get videoCompressionFailed => 'காணொளியைச் சுருக்க முடியவில்லை.';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'காணொளிப் பதிவேற்றம் தோல்வியடைந்தது: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -342,6 +366,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'கோரிக்கையை நிராகரி';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$name நிராகரிக்கப்பட்டால், முன்பதிவு உங்கள் பட்டியலிலிருந்து அகற்றப்படும். இதை மீண்டும் மாற்ற முடியாது.';
+  }
 
   @override
   String get statusOnline => 'ஆன்லைன்';
@@ -453,5 +482,10 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'முன்பதிவை நிறைவு செய்ய முடியவில்லை: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'முன்பதிவை தொடங்க முடியவில்லை: $error';
   }
 }

@@ -14,6 +14,7 @@ class BookingCard extends StatelessWidget {
     required this.isBusy,
     required this.isAcceptPending,
     required this.isRejectPending,
+    this.isNew = false,
   });
 
   final PoojaRequest request;
@@ -22,6 +23,7 @@ class BookingCard extends StatelessWidget {
   final bool isBusy;
   final bool isAcceptPending;
   final bool isRejectPending;
+  final bool isNew;
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +48,22 @@ class BookingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Text(
-                    request.fullname,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          request.fullname,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      if (isNew) ...[const _NewBookingBadge(), Gap(8.h)],
+                    ],
                   ),
                 ),
                 Chip(
@@ -143,6 +153,53 @@ class BookingCard extends StatelessWidget {
           Text('$label: ', style: const TextStyle(fontWeight: FontWeight.w600)),
           Expanded(child: Text(value)),
         ],
+      ),
+    );
+  }
+}
+
+class _NewBookingBadge extends StatefulWidget {
+  const _NewBookingBadge();
+
+  @override
+  State<_NewBookingBadge> createState() => _NewBookingBadgeState();
+}
+
+class _NewBookingBadgeState extends State<_NewBookingBadge>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: Tween<double>(
+        begin: 0.94,
+        end: 1.06,
+      ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut)),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 3.h),
+        decoration: BoxDecoration(
+          color: const Color(0xFFC42225),
+          borderRadius: BorderRadius.circular(6.r),
+        ),
+        child: Text(
+          'NEW',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.4,
+          ),
+        ),
       ),
     );
   }

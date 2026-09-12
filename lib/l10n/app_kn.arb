@@ -85,6 +85,7 @@
     "notesLabel": "ಟಿಪ್ಪಣಿಗಳು",
     "statusCompleted": "ಪೂರ್ಣಗೊಂಡಿದೆ",
     "statusAccepted": "ಸ್ವೀಕರಿಸಲಾಗಿದೆ",
+    "statusOngoing": "ಮುಂದುವರಿಯುತ್ತಿದೆ",
     "statusRejected": "ತಿರಸ್ಕರಿಸಲಾಗಿದೆ",
     "statusExpired": "ಅವಧಿ ಮುಗಿದಿದೆ",
     "statusNoPanditAvailable": "ಪಂಡಿತ್ ಲಭ್ಯವಿಲ್ಲ",
@@ -93,6 +94,19 @@
     "currentActiveBooking": "ಪ್ರಸ್ತುತ ಸಕ್ರಿಯ ಬುಕಿಂಗ್",
     "dietyPrefix": "ದೇವತೆ: {diety}",
     "completeBooking": "ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಿ",
+    "startBooking": "ಅರ್ಪಣಮ್ ಪ್ರಾರಂಭಿಸಿ",
+    "uploadArpanamVideo": "ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಸೇರಿಸಿ",
+    "videoUploaded": "ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ",
+    "invalidArpanamVideo": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ವೀಡಿಯೊ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.",
+    "videoCompressionFailed": "ವೀಡಿಯೊವನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಲಾಗಲಿಲ್ಲ.",
+    "videoUploadFailed": "ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ: {error}",
+    "@videoUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
     "freeToAcceptNext": "ಮುಂದಿನ ಲಭ್ಯವಿರುವ ಬುಕಿಂಗ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನೀವು ಮುಕ್ತರಾಗಿದ್ದೀರಿ.",
     "noBookingsAvailable": "ಈಗ ಯಾವುದೇ ಬುಕಿಂಗ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ.",
     "dobShort": "ಜನ್ಮ ದಿನಾಂಕ",
@@ -103,6 +117,14 @@
     "finishCurrentTaskFirst": "ಮೊದಲು ಪ್ರಸ್ತುತ ಕಾರ್ಯವನ್ನು ಮುಗಿಸಿ",
     "acceptRequest": "ವಿನಂತಿ ಸ್ವೀಕರಿಸಿ",
     "rejectRequestTooltip": "ವಿನಂತಿ ತಿರಸ್ಕರಿಸಿ",
+    "rejectBookingWarning": "{name} ಅವರನ್ನು ತಿರಸ್ಕರಿಸಿದರೆ ಬುಕಿಂಗ್ ನಿಮ್ಮ ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ. ಇದನ್ನು ಹಿಂಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "@rejectBookingWarning": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "statusOnline": "ಆನ್‌ಲೈನ್",
     "statusBusy": "ಬ್ಯುಸಿ ಆಗಿದೆ",
     "statusOffline": "ಆಫ್‌ಲೈನ್",
@@ -130,5 +152,13 @@
     "unableToRejectBooking": "ಬುಕಿಂಗ್ ತಿರಸ್ಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
     "unableToCompleteBooking": "ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
     "completedBooking": "{name} ಪೂರ್ಣಗೊಂಡಿದೆ",
-    "couldNotCompleteBooking": "ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}"
+    "couldNotCompleteBooking": "ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}",
+    "couldNotStartBooking": "ಬುಕಿಂಗ್ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}",
+    "@couldNotStartBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }

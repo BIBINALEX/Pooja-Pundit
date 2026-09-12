@@ -49,5 +49,7 @@ String localizeBookingMessage(AppLocalizations l10n, BookingMessage message) {
       return l10n.completedBooking(name);
     case BookingMessageKey.couldNotCompleteBooking:
       return l10n.couldNotCompleteBooking(resolvedError);
+    case BookingMessageKey.couldNotStartBooking:
+      return l10n.couldNotStartBooking(resolvedError);
   }
 }

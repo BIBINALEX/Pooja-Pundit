@@ -286,6 +286,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get statusAccepted => 'ಸ್ವೀಕರಿಸಲಾಗಿದೆ';
 
   @override
+  String get statusOngoing => 'ಮುಂದುವರಿಯುತ್ತಿದೆ';
+
+  @override
   String get statusRejected => 'ತಿರಸ್ಕರಿಸಲಾಗಿದೆ';
 
   @override
@@ -310,6 +313,26 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get completeBooking => 'ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಿ';
+
+  @override
+  String get startBooking => 'ಅರ್ಪಣಮ್ ಪ್ರಾರಂಭಿಸಿ';
+
+  @override
+  String get uploadArpanamVideo => 'ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಸೇರಿಸಿ';
+
+  @override
+  String get videoUploaded => 'ಅರ್ಪಣಮ್ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ';
+
+  @override
+  String get invalidArpanamVideo => 'ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ವೀಡಿಯೊ ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ.';
+
+  @override
+  String get videoCompressionFailed => 'ವೀಡಿಯೊವನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಲಾಗಲಿಲ್ಲ.';
+
+  @override
+  String videoUploadFailed(String error) {
+    return 'ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ: $error';
+  }
 
   @override
   String get freeToAcceptNext =>
@@ -341,6 +364,11 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get rejectRequestTooltip => 'ವಿನಂತಿ ತಿರಸ್ಕರಿಸಿ';
+
+  @override
+  String rejectBookingWarning(String name) {
+    return '$name ಅವರನ್ನು ತಿರಸ್ಕರಿಸಿದರೆ ಬುಕಿಂಗ್ ನಿಮ್ಮ ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ. ಇದನ್ನು ಹಿಂಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.';
+  }
 
   @override
   String get statusOnline => 'ಆನ್‌ಲೈನ್';
@@ -451,5 +479,10 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String couldNotCompleteBooking(String error) {
     return 'ಬುಕಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: $error';
+  }
+
+  @override
+  String couldNotStartBooking(String error) {
+    return 'ಬುಕಿಂಗ್ ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: $error';
   }
 }
