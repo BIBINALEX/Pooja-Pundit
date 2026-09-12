@@ -161,6 +161,11 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                 if (isOngoing) ...[
                   const Gap(12),
                   OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                     onPressed: videoState.isUploading || videoState.isUploaded
                         ? null
                         : () => _chooseVideoSource(activeBooking!.id!),
@@ -173,6 +178,9 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                       videoState.isUploaded
                           ? l10n.videoUploaded
                           : l10n.uploadArpanamVideo,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ),
                   if (videoState.isUploading) ...[
